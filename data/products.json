@@ -1,0 +1,467 @@
+[
+  {
+    "id": "HA-01",
+    "slug": "gajji-silk-bandhani-suit-set",
+    "name": "Gajji silk bandhani suit set",
+    "category": "kurta-sets",
+    "categoryLabel": "Kurta sets",
+    "price": 3890,
+    "mrp": 4600,
+    "image": "/images/n01.jpg",
+    "badge": "New",
+    "published": true,
+    "stock": {
+      "XS": 2,
+      "S": 4,
+      "M": 5,
+      "L": 4,
+      "XL": 3,
+      "XXL": 2
+    },
+    "fabric": "Gajji silk",
+    "care": "Dry clean only",
+    "colours": "Fuchsia, red, mocha",
+    "description": "Traditional bandhani on lustrous gajji silk, with a gota-work neckline and a matching bandhej dupatta finished in a gold tissue border. The silk has real weight to it — this is a wedding-season piece that will keep for years.",
+    "details": [
+      "Hand-tied bandhani on gajji silk",
+      "Gota and mirror neckline panel",
+      "Bandhej dupatta with gold tissue border",
+      "Three-piece unstitched set — kurta, bottom and dupatta",
+      "Available in fuchsia, red and mocha"
+    ]
+  },
+  {
+    "id": "HA-02",
+    "slug": "lilac-tissue-chanderi-set",
+    "name": "Lilac tissue chanderi set with floral dupatta",
+    "category": "kurta-sets",
+    "categoryLabel": "Kurta sets",
+    "price": 3990,
+    "mrp": null,
+    "image": "/images/n02.jpg",
+    "badge": "New",
+    "published": true,
+    "stock": {
+      "XS": 2,
+      "S": 4,
+      "M": 5,
+      "L": 4,
+      "XL": 3,
+      "XXL": 2
+    },
+    "fabric": "Tissue chanderi",
+    "care": "Dry clean only",
+    "colours": "Lilac",
+    "description": "Soft lilac shot with silver tissue, so it shifts between grey and lavender as you move. The yoke is worked in mirror and thread, and the organza dupatta carries large silver flowers across the fall.",
+    "details": [
+      "Mirror and thread yoke with tie-up neckline",
+      "Woven silver butis through the body",
+      "Organza dupatta with floral zari work",
+      "Scalloped embroidered hem",
+      "Three-piece set — kurta, trousers and dupatta"
+    ]
+  },
+  {
+    "id": "HA-03",
+    "slug": "mauve-tissue-chanderi-set",
+    "name": "Mauve tissue chanderi set with zari dupatta",
+    "category": "kurta-sets",
+    "categoryLabel": "Kurta sets",
+    "price": 3990,
+    "mrp": null,
+    "image": "/images/n03.jpg",
+    "badge": null,
+    "published": true,
+    "stock": {
+      "XS": 2,
+      "S": 3,
+      "M": 5,
+      "L": 4,
+      "XL": 3,
+      "XXL": 2
+    },
+    "fabric": "Tissue chanderi",
+    "care": "Dry clean only",
+    "colours": "Dusty mauve",
+    "description": "The warmer sister to the lilac. Dusty mauve with antique gold tissue running through it, and a wide zari-bordered dupatta with gold blooms that catches the light at every angle.",
+    "details": [
+      "Antique gold mirror work on the yoke",
+      "Gold-shot tissue chanderi body",
+      "Wide zari-bordered dupatta with floral weave",
+      "Embroidered scalloped hem",
+      "Three-piece set — kurta, trousers and dupatta"
+    ]
+  },
+  {
+    "id": "HA-04",
+    "slug": "rust-bandhani-gota-suit",
+    "name": "Rust bandhani suit with gota neckline",
+    "category": "kurta-sets",
+    "categoryLabel": "Kurta sets",
+    "price": 3450,
+    "mrp": 4200,
+    "image": "/images/n04.jpg",
+    "badge": "Last few",
+    "published": true,
+    "stock": {
+      "XS": 1,
+      "S": 3,
+      "M": 4,
+      "L": 3,
+      "XL": 2,
+      "XXL": 2
+    },
+    "fabric": "Modal silk",
+    "care": "Dry clean recommended",
+    "colours": "Rust and indigo",
+    "description": "Warm rust modal silk scattered with indigo bandhani roundels, finished with a heavy gota and mirror placket. The dupatta reverses between rust and indigo, so it works two ways.",
+    "details": [
+      "Indigo bandhani roundels on rust modal silk",
+      "Gota-patti and mirror placket",
+      "Reversible rust and indigo bandhej dupatta",
+      "Matching rust bottom included",
+      "Three-piece unstitched set"
+    ]
+  },
+  {
+    "id": "HA-05",
+    "slug": "indigo-bandhani-reverse-suit",
+    "name": "Indigo bandhani suit with rust border",
+    "category": "kurta-sets",
+    "categoryLabel": "Kurta sets",
+    "price": 3450,
+    "mrp": null,
+    "image": "/images/n05.jpg",
+    "badge": null,
+    "published": true,
+    "stock": {
+      "XS": 2,
+      "S": 3,
+      "M": 4,
+      "L": 4,
+      "XL": 2,
+      "XXL": 2
+    },
+    "fabric": "Modal silk",
+    "care": "Dry clean recommended",
+    "colours": "Indigo and rust",
+    "description": "Deep indigo covered in fine bandhani dots, edged with a broad rust border and a chevron band at the hem. Quieter than the rust colourway and easier to wear through the day.",
+    "details": [
+      "All-over fine bandhani on indigo",
+      "Broad rust border with chevron hem band",
+      "Matching bandhej dupatta",
+      "Rust modal silk bottom included",
+      "Three-piece unstitched set"
+    ]
+  },
+  {
+    "id": "HA-06",
+    "slug": "mustard-botanical-print-suit",
+    "name": "Mustard botanical print suit with lace edging",
+    "category": "kurta-sets",
+    "categoryLabel": "Kurta sets",
+    "price": 2990,
+    "mrp": 3600,
+    "image": "/images/n06.jpg",
+    "badge": "New",
+    "published": true,
+    "stock": {
+      "XS": 2,
+      "S": 4,
+      "M": 5,
+      "L": 4,
+      "XL": 3,
+      "XXL": 2
+    },
+    "fabric": "Cotton mul",
+    "care": "Gentle hand wash, cold",
+    "colours": "Mustard and black",
+    "description": "A big art-nouveau botanical print in mustard, sage and black on light cotton mul, with black crochet lace running along the dupatta edge. Cool enough for a Delhi afternoon.",
+    "details": [
+      "Large-scale botanical print on cotton mul",
+      "Black crochet lace edging on the dupatta",
+      "Gold tissue border panels",
+      "Plain black bottom included",
+      "Three-piece unstitched set"
+    ]
+  },
+  {
+    "id": "HA-07",
+    "slug": "maroon-botanical-print-suit",
+    "name": "Maroon botanical print suit with lace edging",
+    "category": "kurta-sets",
+    "categoryLabel": "Kurta sets",
+    "price": 2990,
+    "mrp": null,
+    "image": "/images/n07.jpg",
+    "badge": null,
+    "published": true,
+    "stock": {
+      "XS": 2,
+      "S": 3,
+      "M": 4,
+      "L": 4,
+      "XL": 3,
+      "XXL": 2
+    },
+    "fabric": "Cotton mul",
+    "care": "Gentle hand wash, cold",
+    "colours": "Maroon and coral",
+    "description": "The same botanical print in a deeper maroon, with coral lilies and sage leaves across a black ground. Finished with a floral border and black lace at the hem.",
+    "details": [
+      "Botanical print in maroon, coral and sage",
+      "Floral border panel at the hem",
+      "Black crochet lace edging",
+      "Plain black bottom included",
+      "Three-piece unstitched set"
+    ]
+  },
+  {
+    "id": "HA-08",
+    "slug": "ivory-gold-panel-kurta-set",
+    "name": "Ivory and gold panelled kurta set",
+    "category": "kurta-sets",
+    "categoryLabel": "Kurta sets",
+    "price": 3290,
+    "mrp": 3900,
+    "image": "/images/n08.jpg",
+    "badge": null,
+    "published": true,
+    "stock": {
+      "XS": 2,
+      "S": 4,
+      "M": 4,
+      "L": 3,
+      "XL": 3,
+      "XXL": 2
+    },
+    "fabric": "Cotton mul",
+    "care": "Gentle hand wash, cold",
+    "colours": "Ivory, gold and black",
+    "description": "Ivory and gold panels down the front with a black sequin-edged placket, worn with the botanical dupatta. The cleanest of the printed sets — good for a daytime function.",
+    "details": [
+      "Ivory and gold vertical panels",
+      "Black sequin and lace placket",
+      "Botanical print dupatta with tissue border",
+      "Plain black bottom included",
+      "Three-piece unstitched set"
+    ]
+  },
+  {
+    "id": "HA-09",
+    "slug": "black-evil-eye-charm-bodysuit",
+    "name": "Black evil-eye charm bodysuit",
+    "category": "western",
+    "categoryLabel": "Western",
+    "price": 2190,
+    "mrp": 2690,
+    "image": "/images/n09.jpg",
+    "badge": "New",
+    "published": true,
+    "stock": {
+      "XS": 3,
+      "S": 5,
+      "M": 6,
+      "L": 4,
+      "XL": 3,
+      "XXL": 2
+    },
+    "fabric": "Ribbed cotton stretch",
+    "care": "Machine wash cold, do not tumble dry",
+    "colours": "Black",
+    "description": "A ribbed scoop-neck bodysuit with gold evil-eye charms set at the shoulders and centre front. Snug through the body with a clean line under jeans — the charms do all the work, so nothing else is needed.",
+    "details": [
+      "Gold-tone evil-eye charms at shoulders and front",
+      "Ribbed stretch cotton with scoop neck",
+      "Press-stud gusset fastening",
+      "Cap sleeve, close fit",
+      "Charms are secure but hand wash is kinder"
+    ]
+  },
+  {
+    "id": "HA-10",
+    "slug": "white-evil-eye-charm-bodysuit",
+    "name": "White evil-eye charm bodysuit",
+    "category": "western",
+    "categoryLabel": "Western",
+    "price": 2190,
+    "mrp": null,
+    "image": "/images/n10.jpg",
+    "badge": null,
+    "published": true,
+    "stock": {
+      "XS": 3,
+      "S": 5,
+      "M": 5,
+      "L": 4,
+      "XL": 3,
+      "XXL": 2
+    },
+    "fabric": "Ribbed cotton stretch",
+    "care": "Machine wash cold, do not tumble dry",
+    "colours": "White",
+    "description": "The white colourway of the charm bodysuit. Gold charms read louder against the pale ribbing, and it sits well under an open shirt or on its own with wide-leg denim.",
+    "details": [
+      "Gold-tone evil-eye charms at shoulders and front",
+      "Ribbed stretch cotton with scoop neck",
+      "Press-stud gusset fastening",
+      "Cap sleeve, close fit",
+      "Pairs with the black colourway"
+    ]
+  },
+  {
+    "id": "HA-11",
+    "slug": "ivory-keyhole-charm-bodysuit",
+    "name": "Ivory keyhole charm bodysuit",
+    "category": "western",
+    "categoryLabel": "Western",
+    "price": 2390,
+    "mrp": null,
+    "image": "/images/n11.jpg",
+    "badge": "New",
+    "published": true,
+    "stock": {
+      "XS": 2,
+      "S": 4,
+      "M": 5,
+      "L": 4,
+      "XL": 3,
+      "XXL": 2
+    },
+    "fabric": "Ribbed cotton stretch",
+    "care": "Machine wash cold, do not tumble dry",
+    "colours": "Ivory",
+    "description": "Heavier gold hardware than the others — a square eye plaque at the centre front and textured keyhole charms across both shoulders. Reads almost like jewellery built into the top.",
+    "details": [
+      "Square eye plaque and keyhole shoulder charms",
+      "Textured gold-tone hardware",
+      "Ribbed stretch cotton, scoop neck",
+      "Press-stud gusset fastening",
+      "Wears as a going-out top with denim"
+    ]
+  },
+  {
+    "id": "HA-12",
+    "slug": "white-lace-ribbon-sheer-shirt",
+    "name": "White lace ribbon sheer shirt",
+    "category": "western",
+    "categoryLabel": "Western",
+    "price": 2690,
+    "mrp": 3200,
+    "image": "/images/n12.jpg",
+    "badge": null,
+    "published": true,
+    "stock": {
+      "XS": 2,
+      "S": 4,
+      "M": 5,
+      "L": 4,
+      "XL": 3,
+      "XXL": 2
+    },
+    "fabric": "Sheer chiffon with cotton lace",
+    "care": "Hand wash separately, line dry",
+    "colours": "White",
+    "description": "A relaxed sheer shirt with lace panels running the length of each sleeve, tied at intervals with satin ribbon. Wear it open over a cami, or buttoned with tailored black trousers.",
+    "details": [
+      "Lace insert panels along both sleeves",
+      "Satin ribbon ties down the sleeve",
+      "Patch chest pocket and structured cuffs",
+      "Relaxed fit, sheer — wear with a slip",
+      "Point collar, full button front"
+    ]
+  },
+  {
+    "id": "HA-13",
+    "slug": "cream-lace-ribbon-sheer-shirt",
+    "name": "Cream lace ribbon sheer shirt",
+    "category": "western",
+    "categoryLabel": "Western",
+    "price": 2690,
+    "mrp": null,
+    "image": "/images/n13.jpg",
+    "badge": null,
+    "published": true,
+    "stock": {
+      "XS": 2,
+      "S": 4,
+      "M": 4,
+      "L": 4,
+      "XL": 2,
+      "XXL": 2
+    },
+    "fabric": "Sheer chiffon with cotton lace",
+    "care": "Hand wash separately, line dry",
+    "colours": "Cream",
+    "description": "The cream version, warmer against the skin than the white. The lace and ribbon work is tonal here, so the detail shows up close rather than across a room.",
+    "details": [
+      "Tonal lace inserts along both sleeves",
+      "Satin ribbon ties down the sleeve",
+      "Patch chest pocket and structured cuffs",
+      "Relaxed fit, sheer — wear with a slip",
+      "Point collar, full button front"
+    ]
+  },
+  {
+    "id": "HA-14",
+    "slug": "black-lace-ribbon-sheer-shirt",
+    "name": "Black lace ribbon sheer shirt",
+    "category": "western",
+    "categoryLabel": "Western",
+    "price": 2690,
+    "mrp": null,
+    "image": "/images/n14.jpg",
+    "badge": "Last few",
+    "published": true,
+    "stock": {
+      "XS": 1,
+      "S": 3,
+      "M": 4,
+      "L": 3,
+      "XL": 2,
+      "XXL": 1
+    },
+    "fabric": "Sheer chiffon with cotton lace",
+    "care": "Hand wash separately, line dry",
+    "colours": "Black",
+    "description": "The evening one. Black chiffon with black lace sleeve panels and ribbon ties — sheer enough to be interesting, structured enough at the collar and cuff to stay sharp.",
+    "details": [
+      "Black lace inserts along both sleeves",
+      "Satin ribbon ties down the sleeve",
+      "Patch chest pocket and structured cuffs",
+      "Relaxed fit, sheer — wear with a slip",
+      "Point collar, full button front"
+    ]
+  },
+  {
+    "id": "HA-15",
+    "slug": "blush-floral-shirt-co-ord",
+    "name": "Blush floral shirt and trouser co-ord",
+    "category": "co-ords",
+    "categoryLabel": "Co-ord sets",
+    "price": 3690,
+    "mrp": 4400,
+    "image": "/images/n15.jpg",
+    "badge": "New",
+    "published": true,
+    "stock": {
+      "XS": 2,
+      "S": 4,
+      "M": 5,
+      "L": 4,
+      "XL": 3,
+      "XXL": 2
+    },
+    "fabric": "Cotton satin",
+    "care": "Gentle machine wash, cold",
+    "colours": "Blush pink",
+    "description": "Pale blush with a large green botanical print placed at the cuffs, hem and up the trouser leg, edged with a thin mustard line. Relaxed shirt, wide-leg trousers, and it works as separates too.",
+    "details": [
+      "Placed botanical print at cuffs, hem and trouser leg",
+      "Thin mustard border detail",
+      "Relaxed shirt with full button front",
+      "Wide-leg trousers with elasticated back waist",
+      "Two-piece set — shirt and trousers"
+    ]
+  }
+]
