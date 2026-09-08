@@ -82,7 +82,7 @@ function cardHtml(p) {
       <img src="${p.image}" alt="${esc(p.name)}" loading="lazy">
       ${off ? `<span class="tag off">−${off}%</span>` : p.badge ? `<span class="tag">${esc(p.badge)}</span>` : ''}
       <button class="wish ${saved ? 'on' : ''}" data-wish="${p.id}" aria-label="Save ${esc(p.name)}">${heartIcon}</button>
-      <span class="quick">View piece</span>
+      <span class="quick">View product</span>
     </div>
     <p class="brand">Haute Attire</p>
     <span class="name">${esc(p.name)}</span>
@@ -112,7 +112,7 @@ function buildPromo() {
   const msgs = [
     'Free shipping on orders over ₹2,499',
     'Order over WhatsApp — we confirm within the hour',
-    'Every piece cut in a small run',
+    'Every product cut in a small run',
     'Delivered across India in 3–5 working days'
   ];
   document.getElementById('promoTrack').innerHTML = [...msgs, ...msgs].map(m => `<span>${m}</span>`).join('');
@@ -142,7 +142,7 @@ function renderDrawer() {
   const body = document.getElementById('drawerBody');
   const foot = document.getElementById('drawerFoot');
   if (!c || !c.items.length) {
-    body.innerHTML = `<div class="empty"><h2>Nothing here yet</h2><p>Pieces you add will show up here.</p></div>`;
+    body.innerHTML = `<div class="empty"><h2>Nothing here yet</h2><p>Products you add will show up here.</p></div>`;
     foot.innerHTML = `<a class="btn ghost" href="#/shop">Start shopping</a>`;
     return;
   }
@@ -202,11 +202,11 @@ async function viewHome() {
 
     <section>
       <div class="wrap">
-        <div class="head"><h2>Shop by category</h2><a class="meta" href="#/shop">All pieces</a></div>
+        <div class="head"><h2>Shop by category</h2><a class="meta" href="#/shop">All products</a></div>
         <div class="cats stagger">
           ${categories.map(c => `<a class="cat" href="#/shop/${c.slug}">
             <img src="${c.image}" alt="${esc(c.label)}" loading="lazy">
-            <span>${esc(c.label)}<b>${c.count} ${c.count === 1 ? 'piece' : 'pieces'}</b></span></a>`).join('')}
+            <span>${esc(c.label)}<b>${c.count} ${c.count === 1 ? 'product' : 'products'}</b></span></a>`).join('')}
         </div>
       </div>
     </section>
@@ -253,8 +253,8 @@ async function viewHome() {
         <div>
           <p class="role">Meet the founder</p>
           <h2>Nidhi Kapoor</h2>
-          <p>Haute Attire began in 2023, in a home in Delhi, with one stubborn idea: that a woman should not have to choose between a piece that feels special and a price she can live with.</p>
-          <p>Nidhi selects every fabric herself — the bandhani, the tissue chanderi, the mul cotton — and cuts each style in a small run rather than a bulk order. It means a piece sometimes sells out in a week. It also means what you wear to a wedding is unlikely to walk past you at the same wedding.</p>
+          <p>Haute Attire began in 2023, in a home in Delhi, with one stubborn idea: that a woman should not have to choose between a product that feels special and a price she can live with.</p>
+          <p>Nidhi selects every fabric herself — the bandhani, the tissue chanderi, the mul cotton — and cuts each style in a small run rather than a bulk order. It means a style sometimes sells out in a week. It also means what you wear to a wedding is unlikely to walk past you at the same wedding.</p>
           <p>What started as a handful of orders between friends now ships across India, though the work still happens the same way: a WhatsApp message, a real conversation about your size and your occasion, and a parcel packed at home in Delhi.</p>
           <div class="facts">
             <div><b>2023</b><span>Founded</span></div>
@@ -279,12 +279,12 @@ async function viewShop(category, query) {
     api('/products?' + params), api('/categories')
   ]);
   const title = query ? `Results for "${query}"` : category
-    ? (categories.find(c => c.slug === category) || {}).label || 'Shop' : 'All pieces';
+    ? (categories.find(c => c.slug === category) || {}).label || 'Shop' : 'All products';
 
   app.innerHTML = `
     ${backLink('Home', '#/')}
     <section style="padding-top:12px"><div class="wrap">
-      <div class="head"><h1>${esc(title)}</h1><span class="meta">${total} ${total === 1 ? 'piece' : 'pieces'}</span></div>
+      <div class="head"><h1>${esc(title)}</h1><span class="meta">${total} ${total === 1 ? 'product' : 'products'}</span></div>
       <div class="filters">
         <a class="chip ${!category && !query ? 'on' : ''}" href="#/shop">All</a>
         ${categories.map(c => `<a class="chip ${category === c.slug ? 'on' : ''}" href="#/shop/${c.slug}">${esc(c.label)}</a>`).join('')}
@@ -332,7 +332,7 @@ async function viewProduct(slug) {
           <button class="btn" id="addBtn">Add to bag</button>
           <button class="btn ghost" id="wishBtn">${saved ? 'Saved' : 'Save'}</button>
         </div>
-        <a class="btn wa" id="askBtn" href="#" target="_blank" rel="noopener" style="margin-bottom:30px">Ask about this piece</a>
+        <a class="btn wa" id="askBtn" href="#" target="_blank" rel="noopener" style="margin-bottom:30px">Ask about this product</a>
 
         <div class="acc">
           <details open><summary>Details</summary><div class="body"><ul>${p.details.map(d => `<li>${esc(d)}</li>`).join('')}</ul></div></details>
@@ -549,7 +549,7 @@ async function viewWishlist() {
       <div class="head"><h1>Wishlist</h1><span class="meta">${items.length} saved</span></div>
       ${items.length
         ? `<div class="grid stagger">${items.map(cardHtml).join('')}</div>`
-        : `<div class="empty"><h2>Nothing saved yet</h2><p>Tap the heart on any piece to keep it here.</p><p style="margin-top:20px"><a class="link-u" href="#/shop">Browse new in</a></p></div>`}
+        : `<div class="empty"><h2>Nothing saved yet</h2><p>Tap the heart on any product to keep it here.</p><p style="margin-top:20px"><a class="link-u" href="#/shop">Browse new in</a></p></div>`}
     </section></div>`;
   observeReveals();
 }
@@ -584,7 +584,7 @@ const HELP = {
     title: 'How ordering works',
     body: () => `<p>We keep this simple, and we do not take card details on this website.</p>
     <ol style="padding-left:18px;display:grid;gap:12px;margin:22px 0">
-      <li>Add the pieces you want to your bag and pick your size.</li>
+      <li>Add the products you want to your bag and pick your size.</li>
       <li>Fill in your name, WhatsApp number and delivery address at checkout.</li>
       <li>Your order opens as a ready-written WhatsApp message. Send it.</li>
       <li>We reply to confirm stock and sizing, then share UPI or bank details.</li>
@@ -641,7 +641,7 @@ async function viewStudio() {
 
       <div class="add-box">
         <div class="add-head">
-          <h2>Add a piece</h2>
+          <h2>Add a product</h2>
           <button class="mini" id="toggleAdd">Open form</button>
         </div>
         <form id="addForm" hidden>
@@ -656,7 +656,7 @@ async function viewStudio() {
               </label>
             </div>
             <div>
-              <div class="field" data-f="name"><label for="pName">Name of the piece</label>
+              <div class="field" data-f="name"><label for="pName">Name of the product</label>
                 <input id="pName" placeholder="e.g. Sage green cotton kurta set"></div>
               <div class="two-col">
                 <div class="field" data-f="price"><label for="pPrice">Price (₹)</label>
@@ -679,7 +679,7 @@ async function viewStudio() {
               <div class="field"><label for="pColours">Colours — optional</label>
                 <input id="pColours" placeholder="e.g. Fuchsia, red, mocha"></div>
               <div class="field"><label for="pDesc">Description</label>
-                <textarea id="pDesc" rows="3" placeholder="Two or three lines about the piece."></textarea></div>
+                <textarea id="pDesc" rows="3" placeholder="Two or three lines about the product."></textarea></div>
               <div class="field"><label for="pDetails">Details — one per line</label>
                 <textarea id="pDetails" rows="3" placeholder="Hand-done chikankari yoke&#10;Matching dupatta included&#10;Three-piece set"></textarea></div>
               <button class="btn" type="submit" id="addBtn">Add to the shop</button>
@@ -876,7 +876,7 @@ document.getElementById('search').addEventListener('keydown', e => {
   if (q) { closeDrawer(); go('#/search/' + encodeURIComponent(q)); }
 });
 document.getElementById('menuBtn').addEventListener('click', () => {
-  const q = prompt('Search for a piece');
+  const q = prompt('Search for a product');
   if (q && q.trim()) go('#/search/' + encodeURIComponent(q.trim()));
 });
 

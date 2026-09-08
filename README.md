@@ -66,6 +66,29 @@ public/styles.css      all styling and animation
 public/images/         the 15 product photos
 ```
 
+## Publishing weekly changes
+
+Whenever I send you new files (a fix, a new feature, wording changes), here's the whole process:
+
+1. Unzip the new files **into the same `haute-attire-v3` folder**, overwriting what's there
+2. In Terminal:
+   ```
+   cd ~/Downloads/haute-attire-v3
+   ./publish.sh
+   ```
+3. Wait about 2 minutes — Render rebuilds automatically
+
+That's the entire workflow, every time, indefinitely. `publish.sh` handles the git add/commit/push in one step, so you never need to remember those three separate commands again.
+
+If Terminal ever says `permission denied` when running it, run this once and then try again:
+```
+chmod +x publish.sh
+```
+
+## Adding products day-to-day (no publish needed)
+
+This is separate from the above and doesn't touch GitHub or Render at all — go straight to `hauteattirebynk.com/#/studio`, add the product, it's live immediately. Only use `publish.sh` when the *code itself* changes.
+
 ## Next
 
 1. Second and third photo per product — the card and product page are ready for it.
