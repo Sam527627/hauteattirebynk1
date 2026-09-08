@@ -61,8 +61,8 @@ img{display:block;width:100%;height:100%;object-fit:cover}
 .search input:focus{outline:0}
 .logo{font-family:var(--serif);font-size:29px;letter-spacing:.22em;text-indent:.22em;white-space:nowrap;text-align:center;transition:font-size .3s var(--ease)}
 .mast.stuck .logo{font-size:22px}
-.logo small{display:block;font-family:var(--sans);font-weight:400;font-size:13px;letter-spacing:.36em;text-indent:.36em;color:var(--ink);margin-top:5px}
-.mast.stuck .logo small{font-size:11px}
+.logo small{display:block;font-family:var(--sans);font-weight:500;font-size:18px;letter-spacing:.26em;text-indent:.26em;color:var(--ink);margin-top:7px}
+.mast.stuck .logo small{font-size:14px}
 .icons{display:flex;justify-content:flex-end;gap:24px;align-items:center}
 .icons a,.icons button{position:relative;display:grid;place-items:center;width:26px;height:26px;background:none;border:0;cursor:pointer;transition:transform .2s}
 .icons a:hover,.icons button:hover{transform:translateY(-2px)}
