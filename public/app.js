@@ -629,6 +629,9 @@ async function viewStudio() {
     { slug: 'co-ords', label: 'Co-ord sets' },
     { slug: 'western', label: 'Western' },
     { slug: 'indo-western', label: 'Indo-Western' },
+    { slug: 'occasion-wear', label: 'Occasion Wear' },
+    { slug: 'jackets', label: 'Jackets' },
+    { slug: 'party-sets', label: 'Party Sets' },
     { slug: 'sarees', label: 'Sarees' },
     { slug: 'lehengas', label: 'Lehengas' },
     { slug: 'jewellery', label: 'Jewellery' }

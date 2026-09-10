@@ -463,5 +463,385 @@
       "Wide-leg trousers with elasticated back waist",
       "Two-piece set — shirt and trousers"
     ]
+  },
+  {
+    "id": "HA-16",
+    "slug": "fuchsia-brocade-peplum-set",
+    "name": "Fuchsia brocade peplum top with palazzo",
+    "category": "indo-western",
+    "categoryLabel": "Indo-Western",
+    "price": 5490,
+    "mrp": 6900,
+    "image": "/images/m01.jpg",
+    "badge": "New",
+    "published": true,
+    "stock": {
+      "XS": 2,
+      "S": 3,
+      "M": 4,
+      "L": 4,
+      "XL": 3,
+      "XXL": 2
+    },
+    "fabric": "Banarasi brocade",
+    "care": "Dry clean only",
+    "colours": "Fuchsia and gold",
+    "description": "A short flared peplum top in fuchsia-and-gold banarasi brocade, with a mirror-and-gota neckline and matching cuffs, worn over fuchsia palazzo trousers. The peplum cut takes it out of traditional territory — this reads as a cocktail piece as much as a festive one.",
+    "details": [
+      "Banarasi brocade peplum top with flared hem",
+      "Gota-patti and mirror-work neckline and cuffs",
+      "Fuchsia palazzo trousers with brocade border",
+      "Two-piece set — top and trousers"
+    ]
+  },
+  {
+    "id": "HA-17",
+    "slug": "red-organza-embroidered-set",
+    "name": "Red organza set with gota border dupatta",
+    "category": "occasion-wear",
+    "categoryLabel": "Occasion Wear",
+    "price": 6990,
+    "mrp": null,
+    "image": "/images/m02.jpg",
+    "badge": "New",
+    "published": true,
+    "stock": {
+      "XS": 1,
+      "S": 2,
+      "M": 3,
+      "L": 3,
+      "XL": 2,
+      "XXL": 1
+    },
+    "fabric": "Organza",
+    "care": "Dry clean only",
+    "colours": "Red and gold",
+    "description": "Sheer red organza over a fitted red slip, finished with a striped gota-and-mirror border running down the placket and along the dupatta edge. The kind of red that photographs well under both daylight and function lighting.",
+    "details": [
+      "Sheer organza kurta over a fitted inner slip",
+      "Striped gota-patti and mirror border on placket and hem",
+      "Matching organza dupatta with gold gota edging",
+      "Three-piece set — kurta, inner slip and dupatta"
+    ]
+  },
+  {
+    "id": "HA-18",
+    "slug": "black-ruffle-organza-jacket",
+    "name": "Black ruffle-sleeve tailored jacket",
+    "category": "jackets",
+    "categoryLabel": "Jackets",
+    "price": 4990,
+    "mrp": null,
+    "image": "/images/m03.jpg",
+    "badge": "New",
+    "published": true,
+    "stock": {
+      "XS": 2,
+      "S": 3,
+      "M": 4,
+      "L": 3,
+      "XL": 2,
+      "XXL": 2
+    },
+    "fabric": "Satin with organza ruffle",
+    "care": "Dry clean only",
+    "colours": "Black",
+    "description": "A sharply tailored satin blazer with the sleeves overtaken by cascading organza ruffles — structured through the body, dramatic at the shoulder. Wear it open over black tailoring or as the entire outfit with nothing underneath.",
+    "details": [
+      "Tailored satin blazer body with shawl collar",
+      "Cascading organza ruffle detail on both sleeves",
+      "Front hook closure, fitted through the waist",
+      "Fully lined"
+    ]
+  },
+  {
+    "id": "HA-19",
+    "slug": "silver-sequin-shirt-trouser-set",
+    "name": "Silver sequin shirt and flared trouser set",
+    "category": "party-sets",
+    "categoryLabel": "Party Sets",
+    "price": 4490,
+    "mrp": 5200,
+    "image": "/images/m04.jpg",
+    "badge": "New",
+    "published": true,
+    "stock": {
+      "XS": 2,
+      "S": 3,
+      "M": 4,
+      "L": 3,
+      "XL": 2,
+      "XXL": 1
+    },
+    "fabric": "Sequin mesh",
+    "care": "Dry clean only",
+    "colours": "Silver",
+    "description": "An all-over silver sequin shirt with a classic collar and button placket, paired with matching flared trousers. Full coverage, full shine — built for the part of the evening after dinner.",
+    "details": [
+      "All-over silver sequin embellishment",
+      "Classic collar shirt with button placket",
+      "Matching flared trousers",
+      "Two-piece set — shirt and trousers"
+    ]
+  },
+  {
+    "id": "HA-20",
+    "slug": "gold-sequin-shirt-trouser-set",
+    "name": "Gold sequin shirt and flared trouser set",
+    "category": "party-sets",
+    "categoryLabel": "Party Sets",
+    "price": 4490,
+    "mrp": null,
+    "image": "/images/m05.jpg",
+    "badge": null,
+    "published": true,
+    "stock": {
+      "XS": 2,
+      "S": 3,
+      "M": 3,
+      "L": 3,
+      "XL": 2,
+      "XXL": 1
+    },
+    "fabric": "Sequin mesh",
+    "care": "Dry clean only",
+    "colours": "Antique gold",
+    "description": "The warmer, antique-gold colourway of our sequin shirt set. Same tailored shirt and flared trouser cut, a deeper metallic that sits closer to bronze than yellow gold.",
+    "details": [
+      "All-over antique gold sequin embellishment",
+      "Classic collar shirt with button placket",
+      "Matching flared trousers",
+      "Two-piece set — shirt and trousers"
+    ]
+  },
+  {
+    "id": "HA-21",
+    "slug": "peach-lace-one-shoulder-dress",
+    "name": "Peach lace one-shoulder draped dress",
+    "category": "occasion-wear",
+    "categoryLabel": "Occasion Wear",
+    "price": 3990,
+    "mrp": null,
+    "image": "/images/m06.jpg",
+    "badge": "New",
+    "published": true,
+    "stock": {
+      "XS": 2,
+      "S": 3,
+      "M": 4,
+      "L": 3,
+      "XL": 2,
+      "XXL": 1
+    },
+    "fabric": "Metallic lace with jersey drape",
+    "care": "Dry clean only",
+    "colours": "Peach gold",
+    "description": "Gold-shot lace on one side, a long draped panel trailing from a gathered waist on the other. Short, one-shouldered and built for a cocktail hour rather than a full evening.",
+    "details": [
+      "One-shoulder metallic lace bodice and skirt",
+      "Gathered waist with a long trailing side drape",
+      "Fitted mini silhouette",
+      "Concealed back zip"
+    ]
+  },
+  {
+    "id": "HA-22",
+    "slug": "camel-brooch-statement-shirt",
+    "name": "Camel statement shirt with brooch trims",
+    "category": "western",
+    "categoryLabel": "Western",
+    "price": 2890,
+    "mrp": null,
+    "image": "/images/m07.jpg",
+    "badge": "New",
+    "published": true,
+    "stock": {
+      "Free Size": 6
+    },
+    "fabric": "Cotton poplin",
+    "care": "Machine wash cold",
+    "colours": "Camel",
+    "description": "A relaxed camel shirt with four sculpted brass-tone brooches running down the placket in place of buttons underneath. Free size, cut generously through the body so it sits well on most frames.",
+    "details": [
+      "Four sculpted brass-tone keyhole brooches down the placket",
+      "Relaxed, slightly oversized fit",
+      "Curved hem, structured collar and cuffs",
+      "One free size"
+    ]
+  },
+  {
+    "id": "HA-23",
+    "slug": "black-brooch-statement-shirt",
+    "name": "Black statement shirt with brooch trims",
+    "category": "western",
+    "categoryLabel": "Western",
+    "price": 2890,
+    "mrp": null,
+    "image": "/images/m08.jpg",
+    "badge": null,
+    "published": true,
+    "stock": {
+      "Free Size": 6
+    },
+    "fabric": "Cotton poplin",
+    "care": "Machine wash cold",
+    "colours": "Black",
+    "description": "The black colourway of our brooch shirt — same sculpted brass-tone hardware down the front, higher contrast, easier to dress up or down. Free size.",
+    "details": [
+      "Four sculpted brass-tone keyhole brooches down the placket",
+      "Relaxed, slightly oversized fit",
+      "Curved hem, structured collar and cuffs",
+      "One free size"
+    ]
+  },
+  {
+    "id": "HA-24",
+    "slug": "black-gold-brocade-hem-anarkali",
+    "name": "Black anarkali with gold brocade hem",
+    "category": "occasion-wear",
+    "categoryLabel": "Occasion Wear",
+    "price": 8900,
+    "mrp": null,
+    "image": "/images/m09.jpg",
+    "badge": "New",
+    "published": true,
+    "stock": {
+      "XS": 1,
+      "S": 2,
+      "M": 2,
+      "L": 2,
+      "XL": 1,
+      "XXL": 1
+    },
+    "fabric": "Silk blend with net dupatta",
+    "care": "Dry clean only",
+    "colours": "Black and gold",
+    "description": "A full-flare black anarkali with a deep scalloped gold brocade hem and matching embroidered cuffs, paired with a floral-embroidered net dupatta trimmed in gold fringe. The kind of piece that moves the moment you do — built for a sangeet or reception floor.",
+    "details": [
+      "Full-flare anarkali with scalloped gold brocade hem",
+      "Matching brocade cuffs on full sleeves",
+      "Floral-embroidered net dupatta with gold fringe edge",
+      "Concealed back zip, fully lined"
+    ]
+  },
+  {
+    "id": "HA-25",
+    "slug": "black-shawl-drape-gown",
+    "name": "Black gown with heavy embroidered shawl dupatta",
+    "category": "occasion-wear",
+    "categoryLabel": "Occasion Wear",
+    "price": 7900,
+    "mrp": null,
+    "image": "/images/m10.jpg",
+    "badge": null,
+    "published": true,
+    "stock": {
+      "XS": 1,
+      "S": 1,
+      "M": 2,
+      "L": 2,
+      "XL": 1,
+      "XXL": 1
+    },
+    "fabric": "Silk blend with net dupatta",
+    "care": "Dry clean only",
+    "colours": "Black and antique gold",
+    "description": "A plain black gown that lets a densely embroidered net dupatta do the talking — florals worked in antique gold and dusty pink thread, draped like a shawl across one shoulder. Fewer seams, more impact.",
+    "details": [
+      "Fitted black gown, square neckline",
+      "Heavily embroidered net dupatta in floral gold and pink thread work",
+      "Gold fringe trim along the dupatta edge",
+      "Concealed back zip"
+    ]
+  },
+  {
+    "id": "HA-26",
+    "slug": "red-kaftan-bird-embroidery",
+    "name": "Red kaftan with hand-embroidered bird motif",
+    "category": "occasion-wear",
+    "categoryLabel": "Occasion Wear",
+    "price": 3490,
+    "mrp": null,
+    "image": "/images/m11.jpg",
+    "badge": "New",
+    "published": true,
+    "stock": {
+      "XS": 2,
+      "S": 3,
+      "M": 4,
+      "L": 4,
+      "XL": 3,
+      "XXL": 3
+    },
+    "fabric": "Silk blend",
+    "care": "Dry clean only",
+    "colours": "Red",
+    "description": "A loose, cocoon-sleeved kaftan in deep red silk, with a single hand-embroidered bird worked in gold thread beside a gota neckline. Easy to wear, nothing to adjust through the evening.",
+    "details": [
+      "Hand-embroidered gold bird motif at the neckline",
+      "Gota-patti bordered neckline",
+      "Cocoon sleeves, relaxed kaftan silhouette",
+      "Side slits for ease of movement"
+    ]
+  },
+  {
+    "id": "HA-27",
+    "slug": "black-velvet-embellished-jacket",
+    "name": "Black velvet jacket with gold and silver embroidery",
+    "category": "jackets",
+    "categoryLabel": "Jackets",
+    "price": 5990,
+    "mrp": 6900,
+    "image": "/images/m12.jpg",
+    "badge": "Last few",
+    "published": true,
+    "stock": {
+      "XS": 1,
+      "S": 2,
+      "M": 2,
+      "L": 2,
+      "XL": 1,
+      "XXL": 1
+    },
+    "fabric": "Velvet",
+    "care": "Dry clean only",
+    "colours": "Black, gold and silver",
+    "description": "Black velvet worked densely in gold and silver zardozi scrollwork across the neckline, pockets and hem — this is the jacket that replaces jewellery. Structured shoulders, nipped waist, a genuine statement piece.",
+    "details": [
+      "Dense gold and silver zardozi embroidery",
+      "Structured shoulders, fitted waist",
+      "Front hook-and-eye closure",
+      "Two embroidered flap pockets"
+    ]
+  },
+  {
+    "id": "HA-28",
+    "slug": "red-sequin-rosette-mini-dress",
+    "name": "Red sequin mini dress with rosette detail",
+    "category": "party-sets",
+    "categoryLabel": "Party Sets",
+    "price": 4990,
+    "mrp": null,
+    "image": "/images/m13.jpg",
+    "badge": "New",
+    "published": true,
+    "stock": {
+      "XS": 2,
+      "S": 3,
+      "M": 3,
+      "L": 2,
+      "XL": 2,
+      "XXL": 1
+    },
+    "fabric": "Sequin mesh",
+    "care": "Dry clean only",
+    "colours": "Red",
+    "description": "A fitted red sequin mini with draped ruching through the body and two fabric rosettes — one at the shoulder, one at the waist. High neck, long sleeves, made for a birthday or a New Year's countdown.",
+    "details": [
+      "All-over red sequin embellishment",
+      "Draped ruching through the body",
+      "Fabric rosette detail at shoulder and waist",
+      "High neck, long sleeves, fitted mini length"
+    ]
   }
 ]
