@@ -185,18 +185,18 @@ addEventListener('scroll', () => mast.classList.toggle('stuck', scrollY > 90), {
 /* ---------- views ---------- */
 async function viewHome() {
   const [{ products }, { categories }] = await Promise.all([api('/products'), api('/categories')]);
-  const hero = products.find(p => p.badge === 'New') || products[0];
-  const newIn = products.slice(0, 8);
-  const under3k = products.filter(p => p.price < 3000).slice(0, 4);
+  const underFourK = products.filter(p => p.price <= 4000);
+  const hero = underFourK.find(p => p.slug === 'lilac-tissue-chanderi-set') || underFourK[0] || products[0];
+  const newIn = underFourK.slice(0, 8);
 
   app.innerHTML = `
     <div class="hero">
       <div class="hero-img"><img src="${hero.image}" alt="${esc(hero.name)}"></div>
       <div class="hero-txt">
-        <p class="eyebrow">New this week</p>
-        <h1>Festive silks,<br>everyday shirts</h1>
-        <p>Bandhani and tissue chanderi for the wedding run, sheer lace shirts and charm bodysuits for the rest of the year. Nothing over ₹4,000.</p>
-        <a class="link-u" href="#/shop">Shop everything</a>
+        <p class="eyebrow">This season</p>
+        <h1>Quietly made,<br>beautifully worn</h1>
+        <p>Hand-tied bandhani, chikankari worked stitch by stitch, and tissue chanderi that catches the light as you move — cut in small batches, priced to wear often, not just once.</p>
+        <a class="link-u" href="#/shop">Explore the collection</a>
       </div>
     </div>
 
@@ -213,7 +213,7 @@ async function viewHome() {
 
     <section style="padding-top:0">
       <div class="wrap">
-        <div class="head reveal"><h2>New in</h2><a class="meta" href="#/shop">View all ${products.length}</a></div>
+        <div class="head reveal"><h2>Everyday favourites</h2><a class="meta" href="#/shop">View all ${underFourK.length}</a></div>
         <div class="grid stagger">${newIn.map(cardHtml).join('')}</div>
       </div>
     </section>
@@ -221,24 +221,17 @@ async function viewHome() {
     <section style="padding-top:0">
       <div class="wrap"><div class="split stagger">
         <div class="panel">
-          <h3>Made in small runs</h3>
-          <p>Each style is cut in limited numbers, so nothing you wear turns up on ten other people.</p>
+          <h3>Never mass-produced</h3>
+          <p>Each style is finished in a small batch by hand. Once it sells out, it doesn't come back the same way twice.</p>
           <a class="link-u" href="#/shop">See what's in stock</a>
         </div>
         <div class="panel b">
-          <h3>Ordered over WhatsApp</h3>
-          <p>Build your bag here, and the order lands with us as a message. We confirm sizing and payment directly.</p>
+          <h3>A real person replies</h3>
+          <p>Add what you like to your bag — the order reaches us as a WhatsApp message, and we confirm your size and payment ourselves.</p>
           <a class="link-u" href="#/help/ordering">How it works</a>
         </div>
       </div></div>
     </section>
-
-    ${under3k.length ? `<section style="padding-top:0">
-      <div class="wrap">
-        <div class="head reveal"><h2>Under ₹3,000</h2><a class="meta" href="#/shop">Shop all</a></div>
-        <div class="grid stagger">${under3k.map(cardHtml).join('')}</div>
-      </div>
-    </section>` : ''}
 
     <div class="wrap"><div class="svcs stagger">
       <div class="svc"><h4>Free shipping over ₹2,499</h4><p>Delivered across India in 3–5 working days.</p></div>
@@ -892,9 +885,48 @@ document.getElementById('subBtn').addEventListener('click', async () => {
   } catch (err) { msg.style.color = 'var(--sale)'; msg.textContent = err.message; }
 });
 
+/* ---------- first-visit 3D intro ---------- */
+function runIntro() {
+  const el = document.getElementById('intro');
+  if (!el) return;
+  const isLocal = ['localhost', '127.0.0.1'].includes(location.hostname);
+  const seen = isLocal ? false : localStorage.getItem('ha_intro_seen');
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (seen || reduced) { el.classList.add('gone'); return; }
+
+  let done = false;
+  const finish = () => {
+    if (done) return;
+    done = true;
+    localStorage.setItem('ha_intro_seen', '1');
+    el.classList.add('leaving');
+    setTimeout(() => el.classList.add('gone'), 780);
+  };
+  document.getElementById('introSkip').addEventListener('click', finish);
+  el.addEventListener('click', finish);
+  setTimeout(finish, 2600);
+}
+
+/* ---------- 3D card tilt (desktop hover only) ---------- */
+function initCardTilt() {
+  if (!window.matchMedia('(hover: hover)').matches) return;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  document.addEventListener('mousemove', e => {
+    const shot = e.target.closest('.shot');
+    if (!shot) return;
+    const r = shot.getBoundingClientRect();
+    const px = (e.clientX - r.left) / r.width - 0.5;
+    const py = (e.clientY - r.top) / r.height - 0.5;
+    shot.style.setProperty('--rx', (px * 6).toFixed(2) + 'deg');
+    shot.style.setProperty('--ry', (-py * 6).toFixed(2) + 'deg');
+  }, { passive: true });
+}
+
 window.addEventListener('hashchange', router);
 
 (async function init() {
+  runIntro();
+  initCardTilt();
   state.adminToken = sessionStorage.getItem('adminToken');
   buildPromo();
   try { state.config = await api('/config'); } catch {}
