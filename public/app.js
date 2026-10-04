@@ -322,7 +322,7 @@ async function viewHome() {
       <div class="hero-txt">
         <p class="eyebrow">The Festive Edit · Diwali 2026</p>
         <h1>Dressed for<br>the light</h1>
-        <p>Tissue, brocade and hand-finished organza — cut in small runs in Delhi for the season of lamps, gifting and long evenings. Every piece under ₹10,000.</p>
+        <p>Tissue, brocade and hand-finished organza — cut in small runs in Delhi for the season of lamps, gifting and long evenings. Every Diwali piece under ₹8,000.</p>
         <div class="cta-row"><a class="btn rani" href="#/occasion/diwali">Shop the Festive Edit</a><a class="link-u" href="#/shop">All products</a></div>
       </div>
     </div>
@@ -354,7 +354,7 @@ async function viewHome() {
 
     <section style="padding-top:0">
       <div class="wrap">
-        <div class="head reveal"><h2>Festive, under ₹10,000</h2><a class="meta" href="#/occasion/diwali">See all Diwali</a></div>
+        <div class="head reveal"><h2>Festive, under ₹8,000</h2><a class="meta" href="#/occasion/diwali">See all Diwali</a></div>
         <div class="grid stagger">${six.map(cardHtml).join('')}</div>
       </div>
     </section>
