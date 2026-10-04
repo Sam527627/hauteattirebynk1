@@ -103,13 +103,15 @@ function skeletonGrid(n = 8) {
 async function buildNav() {
   const { categories } = await api('/categories');
   document.getElementById('navList').innerHTML =
-    `<li><a href="#/shop">New in</a></li>` +
+    `<li><a href="#/occasion/diwali" class="fest-link">Festive Edit</a></li><li><a href="#/shop">New in</a></li>` +
     categories.map(c => `<li><a href="#/shop/${c.slug}">${esc(c.label)}</a></li>`).join('') +
     `<li><a href="#/help/sizing">Size guide</a></li><li><a href="#/help/ordering">How to order</a></li>`;
 }
 
 function buildPromo() {
+  const f = state.config.festive;
   const msgs = [
+    ...(f && f.live ? [`The Festive Edit — Diwali 2026`, `Use ${f.code} for ${f.percent}% off orders over ${rupees(f.minSpend)}`] : []),
     'Free shipping on orders over ₹2,499',
     'Order over WhatsApp — we confirm within the hour',
     'Every product cut in a small run',
@@ -137,6 +139,95 @@ function shippingBar(c) {
     <div class="bar"><i style="width:${pct}%"></i></div>`;
 }
 
+
+/* ---------- festive: totals rows, code + gift wrap ---------- */
+function totalRows(c) {
+  return `<div class="row"><span>Subtotal</span><span>${rupees(c.subtotal)}</span></div>
+    ${c.discount ? `<div class="row fest"><span>${esc(c.codeApplied)} · ${state.config.festive.percent}% off</span><span>−${rupees(c.discount)}</span></div>` : ''}
+    ${c.giftWrap ? `<div class="row"><span>Gift wrap</span><span>${rupees(c.giftWrap)}</span></div>` : ''}
+    <div class="row"><span>Shipping</span><span>${c.shipping ? rupees(c.shipping) : 'Free'}</span></div>`;
+}
+
+function extrasHtml(c) {
+  const f = state.config.festive;
+  if (!f) return '';
+  const codeBox = f.live ? `
+    <div class="code-box">
+      <label for="codeInput">Festive code</label>
+      <div class="code-row">
+        <input id="codeInput" placeholder="${esc(f.code)}" value="${esc(c.codeApplied || '')}" autocomplete="off" autocapitalize="characters">
+        <button type="button" id="applyCode">${c.codeApplied ? 'Remove' : 'Apply'}</button>
+      </div>
+      <p class="code-msg ${c.codeApplied ? 'good' : ''}" id="codeMsg">${c.codeApplied ? `You saved ${rupees(c.discount)}.` : esc(c.codeNote || `${f.percent}% off orders over ${rupees(f.minSpend)}.`)}</p>
+    </div>` : '';
+  return `<div class="extras">${codeBox}
+    <label class="gift"><input type="checkbox" id="giftToggle" ${c.giftWrap ? 'checked' : ''}>
+      <span>Gift wrap this order · ${rupees(f.giftWrap)}</span></label>
+    ${c.giftWrap ? `<textarea id="giftMsg" rows="2" maxlength="200" placeholder="A message for the handwritten card">${esc(c.giftMessage)}</textarea>` : ''}
+  </div>`;
+}
+
+async function setExtras(body) {
+  const c = await api('/cart/extras', { method: 'POST', body });
+  state.cart = c;
+  setCount('bagCount', c.count);
+  renderDrawer();
+  return c;
+}
+
+document.addEventListener('click', async e => {
+  if (e.target.id === 'applyCode') {
+    const input = document.getElementById('codeInput');
+    const removing = state.cart && state.cart.codeApplied;
+    try {
+      const c = await setExtras({ code: removing ? '' : input.value });
+      toast(removing ? 'Code removed' : c.codeApplied ? 'Festive code applied' : 'Code saved — it applies once your bag qualifies');
+      if (location.hash.startsWith('#/cart')) viewCart();
+    } catch (err) {
+      const m = document.getElementById('codeMsg');
+      if (m) { m.textContent = err.message; m.className = 'code-msg bad'; }
+    }
+  }
+});
+document.addEventListener('change', async e => {
+  if (e.target.id === 'giftToggle') {
+    await setExtras({ gift: e.target.checked });
+    if (location.hash.startsWith('#/cart')) viewCart();
+  }
+  if (e.target.id === 'giftMsg') await setExtras({ giftMessage: e.target.value });
+});
+
+/* ---------- festive: countdown ---------- */
+let countdownTimer;
+function diwaliParts() {
+  const f = state.config.festive;
+  const t = new Date(f.diwaliDate + 'T00:00:00+05:30').getTime() - Date.now();
+  if (t <= 0) return null;
+  return { d: Math.floor(t / 864e5), h: Math.floor(t / 36e5) % 24, m: Math.floor(t / 6e4) % 60, s: Math.floor(t / 1e3) % 60 };
+}
+function buildFestStrip() {
+  const f = state.config.festive;
+  const el = document.getElementById('festStrip');
+  if (!f || !f.live) { el.hidden = true; return; }
+  el.innerHTML = `<span>The Festive Edit · Diwali 2026</span>
+    <i></i><span>Use <b>${esc(f.code)}</b> for ${f.percent}% off over ${rupees(f.minSpend)}</span>`;
+  el.hidden = false;
+}
+function tickCountdown() {
+  clearInterval(countdownTimer);
+  const el = document.getElementById('heroCount');
+  if (!el) return;
+  const draw = () => {
+    const p = diwaliParts();
+    if (!document.getElementById('heroCount')) return clearInterval(countdownTimer);
+    if (!p) { el.innerHTML = `<span class="hb">Happy Diwali</span>`; return; }
+    const cell = (n, l) => `<div><b>${String(n).padStart(2, '0')}</b><span>${l}</span></div>`;
+    el.innerHTML = cell(p.d, 'Days') + cell(p.h, 'Hours') + cell(p.m, 'Mins') + cell(p.s, 'Secs');
+  };
+  draw();
+  countdownTimer = setInterval(draw, 1000);
+}
+
 function renderDrawer() {
   const c = state.cart;
   const body = document.getElementById('drawerBody');
@@ -162,8 +253,7 @@ function renderDrawer() {
       <div class="end"><p class="price">${rupees(i.lineTotal)}</p></div>
     </div>`).join('');
   foot.innerHTML = `
-    <div class="row"><span>Subtotal</span><span>${rupees(c.subtotal)}</span></div>
-    <div class="row"><span>Shipping</span><span>${c.shipping ? rupees(c.shipping) : 'Free'}</span></div>
+    ${totalRows(c)}
     ${shippingBar(c)}
     <div class="row total"><span>Total</span><span>${rupees(c.total)}</span></div>
     <a class="btn" href="#/checkout" style="margin-top:18px" id="drawerCheckout">Checkout</a>`;
@@ -183,26 +273,110 @@ const mast = document.getElementById('mast');
 addEventListener('scroll', () => mast.classList.toggle('stuck', scrollY > 90), { passive: true });
 
 /* ---------- views ---------- */
+const OCCASIONS = {
+  navratri: { label: 'Navratri', line: 'Nine nights, nine colours — bandhani and tissue that move with the dance.' },
+  'karwa-chauth': { label: 'Karwa Chauth', line: 'Reds, maroons and rust, finished for a long evening of waiting for the moon.' },
+  diwali: { label: 'Diwali', line: 'Sequins, brocade and organza for the night the whole house is lit.' },
+  'wedding-guest': { label: 'Wedding guest', line: 'Dressed for the sangeet, never upstaging the bride.' }
+};
+const diya = `<svg viewBox="0 0 40 40" class="diya"><path class="flame" d="M20 4c3 5 5 8 0 14-5-6-3-9 0-14z"/><path class="bowl" d="M4 24h32c0 8-7 13-16 13S4 32 4 24z"/><path class="rim" d="M4 24h32" /></svg>`;
+const sparkles = Array.from({ length: 16 }, (_, i) => `<i style="left:${(i * 37 + 8) % 96}%;animation-delay:${(i * 0.7) % 6}s;animation-duration:${6 + (i % 5)}s"></i>`).join('');
+const notch = `<svg class="notch" viewBox="0 0 600 24" preserveAspectRatio="none" aria-hidden="true"><path d="M0 2 H255 Q275 2 285 12 L300 22 L315 12 Q325 2 345 2 H600" fill="none" stroke="currentColor" stroke-width="1.2"/></svg>`;
+
+async function viewOccasion(slug) {
+  const o = OCCASIONS[slug];
+  if (!o) return go('#/shop');
+  const { products, total } = await api('/products?occasion=' + encodeURIComponent(slug));
+  app.innerHTML = `
+    ${backLink('Home', '#/')}
+    <section style="padding-top:12px"><div class="wrap">
+      <p class="eyebrow">The Festive Edit</p>
+      <div class="head"><h1>${esc(o.label)}</h1><span class="meta">${total} ${total === 1 ? 'product' : 'products'}</span></div>
+      <p class="occ-line">${esc(o.line)}</p>
+      <div class="filters">
+        <a class="chip" href="#/shop">All</a>
+        ${Object.entries(OCCASIONS).map(([k, v]) => `<a class="chip ${k === slug ? 'on' : ''}" href="#/occasion/${k}">${esc(v.label)}</a>`).join('')}
+      </div>
+      <div class="grid stagger">${products.map(cardHtml).join('')}</div>
+    </div></section>`;
+  observeReveals();
+}
+
 async function viewHome() {
   const [{ products }, { categories }] = await Promise.all([api('/products'), api('/categories')]);
-  const underFourK = products.filter(p => p.price <= 4000);
-  const hero = underFourK.find(p => p.slug === 'lilac-tissue-chanderi-set') || underFourK[0] || products[0];
-  const newIn = underFourK.slice(0, 8);
+  const f = state.config.festive;
+  const festive = products.filter(p => p.festive);
+  const six = (festive.length ? festive : products.filter(p => p.price >= 5000)).slice(0, 6);
+  const by = slug => products.find(p => p.slug === slug);
+  const hero = by('sona-crushed-tissue-anarkali-set') || six[0] || products[0];
+  const spot = by('black-gold-brocade-hem-anarkali') || six[1] || products[1] || hero;
+  const newIn = products.filter(p => p.badge === 'New').slice(0, 8);
+  const occTiles = Object.entries(OCCASIONS).map(([k, v]) => {
+    const p = products.find(x => (x.occasions || []).includes(k));
+    return p ? { k, v, p, n: products.filter(x => (x.occasions || []).includes(k)).length } : null;
+  }).filter(Boolean);
 
   app.innerHTML = `
-    <div class="hero">
-      <div class="hero-img"><img src="${hero.image}" alt="${esc(hero.name)}"></div>
+    <div class="hero festive-hero">
+      <div class="hero-img"><img src="${hero.image}" alt="${esc(hero.name)}"><span class="glint"></span>${sparkles}</div>
       <div class="hero-txt">
-        <p class="eyebrow">This season</p>
-        <h1>Quietly made,<br>beautifully worn</h1>
-        <p>Hand-tied bandhani, chikankari worked stitch by stitch, and tissue chanderi that catches the light as you move — cut in small batches, priced to wear often, not just once.</p>
-        <a class="link-u" href="#/shop">Explore the collection</a>
+        <p class="eyebrow">The Festive Edit · Diwali 2026</p>
+        <h1>Dressed for<br>the light</h1>
+        <p>Tissue, brocade and hand-finished organza — cut in small runs in Delhi for the season of lamps, gifting and long evenings. Every piece under ₹10,000.</p>
+        <div class="cta-row"><a class="btn rani" href="#/occasion/diwali">Shop the Festive Edit</a><a class="link-u" href="#/shop">All products</a></div>
       </div>
     </div>
+    <div class="diyas" aria-hidden="true">${diya.repeat(9)}</div>
 
     <section>
       <div class="wrap">
-        <div class="head"><h2>Shop by category</h2><a class="meta" href="#/shop">All products</a></div>
+        <div class="head reveal"><h2>Shop by occasion</h2><span class="meta">Four ways to celebrate</span></div>
+        <div class="occ stagger">
+          ${occTiles.map(({ k, v, p, n }) => `<a class="occ-tile" href="#/occasion/${k}">
+            <img src="${p.image}" alt="${esc(v.label)}" loading="lazy">
+            <span><em>${n} ${n === 1 ? 'product' : 'products'}</em>${esc(v.label)}</span></a>`).join('')}
+        </div>
+      </div>
+    </section>
+
+    <section class="spot-sec">
+      <div class="wrap"><div class="spot reveal">
+        <a class="spot-img" href="#/product/${spot.slug}"><img src="${spot.image}" alt="${esc(spot.name)}" loading="lazy"></a>
+        <div class="spot-txt">
+          <p class="eyebrow">Spotlight</p>
+          <h2>${esc(spot.name)}</h2>
+          <p>${esc(spot.description)}</p>
+          <p class="spot-price">${rupees(spot.price)}</p>
+          <a class="btn rani" href="#/product/${spot.slug}" style="max-width:260px">View product</a>
+        </div>
+      </div></div>
+    </section>
+
+    <section style="padding-top:0">
+      <div class="wrap">
+        <div class="head reveal"><h2>Festive, under ₹10,000</h2><a class="meta" href="#/occasion/diwali">See all Diwali</a></div>
+        <div class="grid stagger">${six.map(cardHtml).join('')}</div>
+      </div>
+    </section>
+
+    <section class="offer">
+      <div class="wrap"><div class="offer-in reveal">
+        <div>
+          <p class="eyebrow">Festive offer</p>
+          <h2>${f ? f.percent : 10}% off, for the season</h2>
+          <p>${f && f.live ? `Use <b>${esc(f.code)}</b> in your bag on orders over ${rupees(f.minSpend)}. Valid until ${new Date(f.expires).toLocaleDateString('en-IN', { day: 'numeric', month: 'long' })}.` : 'Look out for our next offer.'}</p>
+        </div>
+        <div class="gift-card">
+          <h3>Sending it as a gift?</h3>
+          <p>Add gift wrap in your bag for ${rupees(f ? f.giftWrap : 199)}. Write a message and we’ll put it on a handwritten card.</p>
+          <a class="link-u" href="#/cart">Open my bag</a>
+        </div>
+      </div></div>
+    </section>
+
+    <section>
+      <div class="wrap">
+        <div class="head reveal"><h2>Shop by category</h2><a class="meta" href="#/shop">All products</a></div>
         <div class="cats stagger">
           ${categories.map(c => `<a class="cat" href="#/shop/${c.slug}">
             <img src="${c.image}" alt="${esc(c.label)}" loading="lazy">
@@ -213,7 +387,7 @@ async function viewHome() {
 
     <section style="padding-top:0">
       <div class="wrap">
-        <div class="head reveal"><h2>Everyday favourites</h2><a class="meta" href="#/shop">View all ${underFourK.length}</a></div>
+        <div class="head reveal"><h2>New arrivals</h2><a class="meta" href="#/shop">View all ${products.length}</a></div>
         <div class="grid stagger">${newIn.map(cardHtml).join('')}</div>
       </div>
     </section>
@@ -413,9 +587,9 @@ async function viewCart() {
         </div>
         <div class="summary">
           <h3>Order summary</h3>
-          <div class="row"><span>Subtotal</span><span>${rupees(c.subtotal)}</span></div>
-          <div class="row"><span>Shipping</span><span>${c.shipping ? rupees(c.shipping) : 'Free'}</span></div>
+          ${totalRows(c)}
           ${shippingBar(c)}
+          ${extrasHtml(c)}
           <div class="row total"><span>Total</span><span>${rupees(c.total)}</span></div>
           <a class="btn" href="#/checkout" style="margin-top:22px">Checkout</a>
         </div>
@@ -456,6 +630,8 @@ async function viewCheckout() {
           <h3>Order summary</h3>
           ${c.items.map(i => `<div class="row"><span>${esc(i.name)} · ${esc(i.size)} × ${i.qty}</span><span>${rupees(i.lineTotal)}</span></div>`).join('')}
           <div class="row" style="border-top:1px solid var(--line);margin-top:10px;padding-top:14px"><span>Subtotal</span><span>${rupees(c.subtotal)}</span></div>
+          ${c.discount ? `<div class="row fest"><span>${esc(c.codeApplied)}</span><span>−${rupees(c.discount)}</span></div>` : ''}
+          ${c.giftWrap ? `<div class="row"><span>Gift wrap${c.giftMessage ? ' (with card)' : ''}</span><span>${rupees(c.giftWrap)}</span></div>` : ''}
           <div class="row"><span>Shipping</span><span>${c.shipping ? rupees(c.shipping) : 'Free'}</span></div>
           <div class="row total"><span>Total</span><span>${rupees(c.total)}</span></div>
         </div>
@@ -503,6 +679,8 @@ async function viewOrder(id) {
             <h3>Details</h3>
             <div class="row"><span>Status</span><span>${esc(order.status)}</span></div>
             <div class="row"><span>Ships to</span><span style="text-align:right;max-width:60%">${esc(order.shipTo.address)}, ${esc(order.shipTo.city)} ${esc(order.shipTo.pincode)}</span></div>
+            ${order.discount ? `<div class="row fest"><span>${esc(order.codeApplied)}</span><span>−${rupees(order.discount)}</span></div>` : ''}
+            ${order.giftWrap ? `<div class="row"><span>Gift wrap</span><span>${rupees(order.giftWrap)}</span></div>` : ''}
             <div class="row total"><span>Total</span><span>${rupees(order.total)}</span></div>
             <a class="btn wa" href="${esc(order.whatsappUrl)}" target="_blank" rel="noopener" style="margin-top:20px">Send on WhatsApp</a>
             <a class="btn ghost" href="#/shop" style="margin-top:10px">Keep shopping</a>
@@ -709,7 +887,7 @@ async function viewStudio() {
         ${orders.map(o => `<tr>
           <td><a href="#/order/${o.id}">${esc(o.id)}</a></td>
           <td>${new Date(o.placedAt).toLocaleDateString('en-IN')}</td>
-          <td>${esc(o.customer.name)}<br><span class="brand">${esc(o.customer.phone)}</span></td>
+          <td>${esc(o.customer.name)}<br><span class="brand">${esc(o.customer.phone)}</span>${o.giftWrap ? `<br><span class="brand">🎁 Gift wrap${o.giftMessage ? ` — “${esc(o.giftMessage)}”` : ''}</span>` : ''}${o.discount ? `<br><span class="brand">${esc(o.codeApplied)} −${rupees(o.discount)}</span>` : ''}</td>
           <td>${o.items.reduce((s, i) => s + i.qty, 0)}</td>
           <td>${rupees(o.total)}</td>
           <td><a class="mini" href="${esc(o.whatsappUrl || '#')}" target="_blank" rel="noopener">WhatsApp</a></td>
@@ -802,12 +980,13 @@ async function viewStudio() {
 async function router() {
   const parts = location.hash.replace(/^#\/?/, '').split('/').filter(Boolean);
   window.scrollTo(0, 0);
-  if (['shop', 'search', undefined].includes(parts[0])) skeletonGrid();
+  if (['shop', 'search', 'occasion', undefined].includes(parts[0])) skeletonGrid();
   try {
     switch (parts[0]) {
       case undefined: await viewHome(); break;
       case 'shop': await viewShop(parts[1] || null, null); break;
       case 'search': await viewShop(null, decodeURIComponent(parts[1] || '')); break;
+      case 'occasion': await viewOccasion(parts[1]); break;
       case 'product': await viewProduct(parts[1]); break;
       case 'cart': await viewCart(); break;
       case 'checkout': await viewCheckout(); break;
@@ -928,8 +1107,9 @@ window.addEventListener('hashchange', router);
   runIntro();
   initCardTilt();
   state.adminToken = sessionStorage.getItem('adminToken');
-  buildPromo();
   try { state.config = await api('/config'); } catch {}
+  buildPromo();
+  buildFestStrip();
   const hello = waLink('Hi Haute Attire! I saw your site and had a question.');
   document.getElementById('waFloat').href = hello;
   document.getElementById('waFooter').href = hello;

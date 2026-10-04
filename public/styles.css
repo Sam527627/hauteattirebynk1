@@ -66,7 +66,7 @@ img{display:block;width:100%;height:100%;object-fit:cover}
 .icons{display:flex;justify-content:flex-end;gap:24px;align-items:center}
 .icons a,.icons button{position:relative;display:grid;place-items:center;width:26px;height:26px;background:none;border:0;cursor:pointer;transition:transform .2s}
 .icons a:hover,.icons button:hover{transform:translateY(-2px)}
-.count{position:absolute;top:-6px;right:-8px;background:var(--ink);color:#fff;font-size:9px;min-width:16px;height:16px;padding:0 4px;border-radius:8px;display:grid;place-items:center;letter-spacing:0}
+.cd{position:absolute;top:-6px;right:-8px;background:var(--ink);color:#fff;font-size:9px;min-width:16px;height:16px;padding:0 4px;border-radius:8px;display:grid;place-items:center;letter-spacing:0}
 .count.bump{animation:pop .4s var(--ease)}
 .count[hidden]{display:none}
 svg{stroke:var(--ink);fill:none;stroke-width:1.2;stroke-linecap:round;stroke-linejoin:round}
@@ -385,3 +385,125 @@ footer.site{padding:66px 0 40px;font-size:13px;margin-top:20px}
   *{animation:none!important;transition:none!important}
   .reveal,.stagger>*,.hero-txt>*{opacity:1!important}
 }
+
+/* ================= Diwali — The Festive Edit ================= */
+body.festive{
+  --rani:#b0124f; --gold:#c9a24b; --gold-soft:#efdfb6; --cream:#fdf8ee;
+  --paper:#fdf8ee; --shade:#f5ecd9; --line:#e9dfc8;
+  --jade:#efdfb6; --jade-deep:#b0124f;
+}
+body.festive .hero-txt,body.festive .panel.b,body.festive .ok{background:#f7ecd4}
+body.festive .mast,body.festive .drawer{background:var(--cream)}
+body.festive .field input,body.festive .field textarea{background:#fff}
+.fest-strip{background:var(--rani);color:#fff;display:flex;justify-content:center;align-items:center;gap:18px;padding:9px 16px;font-size:12px;letter-spacing:.14em;text-transform:uppercase;text-align:center;flex-wrap:wrap}
+.fest-strip[hidden]{display:none}
+.fest-strip b{font-weight:500}
+.fest-strip i{width:4px;height:4px;border-radius:50%;background:var(--gold-soft);display:inline-block}
+.promo{background:linear-gradient(100deg,#e8d39a,#f6ebc8 45%,#e3c982)}
+.fest-link{color:var(--rani);font-weight:500}
+
+.festive-hero .hero-img{position:relative}
+.glint{position:absolute;inset:0;background:linear-gradient(105deg,transparent 40%,rgba(255,240,200,.35) 50%,transparent 60%);transform:translateX(-120%);animation:glint 6s ease-in-out 1.2s infinite;pointer-events:none}
+@keyframes glint{0%{transform:translateX(-120%)}45%,100%{transform:translateX(120%)}}
+.festive-hero .hero-txt h1{color:var(--ink)}
+.festive-hero .hero-txt p{margin:18px 0 22px}
+.dcount{display:flex;gap:10px;margin-bottom:26px}
+.dcount div{min-width:62px;text-align:center;padding:10px 6px;border:1px solid var(--gold);background:rgba(255,255,255,.55)}
+.dcount b{display:block;font-family:var(--serif);font-weight:500;font-size:24px;color:var(--rani);line-height:1.1;font-variant-numeric:tabular-nums}
+.dcount span{font-size:9.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+.dcount .hb{font-family:var(--serif);font-size:22px;color:var(--rani);border:0;background:none}
+.cta-row{display:flex;align-items:center;gap:28px;flex-wrap:wrap}
+.btn.rani{background:var(--rani);border-color:var(--rani);width:auto;min-width:230px}
+.btn.rani:hover{background:#8e0e3f}
+.link-u{color:var(--ink)}
+body.festive .link-u::after{background:var(--rani)}
+
+.notch{display:block;width:100%;height:24px;color:var(--rani);margin-top:34px}
+
+.occ{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+.occ-tile{position:relative;aspect-ratio:3/4;overflow:hidden;display:flex;align-items:flex-end;padding:22px;color:#fff;background:var(--shade)}
+.occ-tile img{position:absolute;inset:0;transition:transform 1.1s var(--ease)}
+.occ-tile::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(30,8,18,.72),rgba(30,8,18,0) 55%)}
+.occ-tile:hover img{transform:scale(1.07)}
+.occ-tile span{position:relative;z-index:1;font-family:var(--serif);font-size:23px;text-transform:uppercase;letter-spacing:.04em;line-height:1.15}
+.occ-tile em{display:block;font-family:var(--sans);font-style:normal;font-size:10.5px;letter-spacing:.22em;color:var(--gold-soft);margin-bottom:6px}
+.occ-line{color:var(--muted);max-width:56ch;margin:-8px 0 22px}
+
+.spot-sec{padding-top:0}
+.spot{display:grid;grid-template-columns:1fr 1fr;background:var(--shade)}
+.spot-img{aspect-ratio:4/5;overflow:hidden;display:block}
+.spot-img img{object-position:top center;transition:transform 1.4s var(--ease)}
+.spot:hover .spot-img img{transform:scale(1.04)}
+.spot-txt{padding:clamp(28px,5vw,80px);display:flex;flex-direction:column;justify-content:center;gap:14px}
+.spot-txt h2{font-family:var(--serif);font-weight:400;font-size:clamp(26px,3vw,40px);text-transform:uppercase;line-height:1.12}
+.spot-txt>p{color:#4b5054;max-width:46ch}
+.spot-price{font-family:var(--serif);font-size:24px;color:var(--ink)!important}
+
+.offer{padding-top:0}
+.offer-in{display:grid;grid-template-columns:1.2fr 1fr;gap:clamp(24px,4vw,64px);align-items:center;padding:clamp(32px,5vw,72px);color:var(--ink);
+  background:
+   repeating-linear-gradient(115deg,rgba(255,255,255,.35) 0 2px,transparent 2px 9px),
+   repeating-linear-gradient(62deg,rgba(150,110,30,.10) 0 1px,transparent 1px 7px),
+   linear-gradient(120deg,#e4cc8c,#f7edc9 40%,#dcc079 70%,#f1e2b0)}
+.offer-in h2{font-family:var(--serif);font-weight:400;font-size:clamp(28px,3.6vw,48px);text-transform:uppercase;line-height:1.1;margin-bottom:12px}
+.offer-in b{color:var(--rani);font-weight:500;letter-spacing:.1em}
+.offer-in .eyebrow{color:var(--rani)}
+.gift-card{background:rgba(255,250,240,.85);padding:28px;border:1px solid var(--gold)}
+.gift-card h3{font-family:var(--serif);font-weight:400;font-size:20px;margin-bottom:8px}
+.gift-card p{margin-bottom:16px;color:#4b5054}
+
+.ribbon{height:46px;margin-top:30px;background:
+   repeating-linear-gradient(115deg,rgba(255,255,255,.4) 0 2px,transparent 2px 9px),
+   repeating-linear-gradient(62deg,rgba(150,110,30,.12) 0 1px,transparent 1px 7px),
+   linear-gradient(100deg,#e4cc8c,#f7edc9 45%,#dcc079)}
+
+.row.fest{color:var(--rani)}
+.extras{margin:18px 0 6px;padding-top:16px;border-top:1px dashed var(--gold)}
+.code-box label{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
+.code-row{display:flex;margin-top:6px}
+.code-row input{flex:1;min-width:0;border:1px solid var(--line);border-right:0;padding:11px 12px;font:inherit;background:#fff;text-transform:uppercase;letter-spacing:.08em}
+.code-row button{border:1px solid var(--rani);background:var(--rani);color:#fff;padding:0 18px;font-size:11px;letter-spacing:.16em;text-transform:uppercase;cursor:pointer}
+.code-msg{font-size:12.5px;color:var(--muted);margin:8px 0 0}
+.code-msg.good{color:#2c6559}.code-msg.bad{color:var(--sale)}
+.gift{display:flex;gap:10px;align-items:center;margin-top:14px;font-size:14px;cursor:pointer}
+.gift input{accent-color:var(--rani);width:16px;height:16px}
+.extras textarea{width:100%;margin-top:10px;border:1px solid var(--line);padding:10px 12px;font:inherit;font-size:14px;background:#fff;resize:vertical}
+
+@media (max-width:900px){
+  .occ{grid-template-columns:1fr 1fr}
+  .spot{grid-template-columns:1fr}
+  .offer-in{grid-template-columns:1fr}
+  .dcount div{min-width:56px}
+  .btn.rani{width:100%}
+}
+@media (prefers-reduced-motion:reduce){.glint{display:none}}
+@media (max-width:600px){.fest-strip i{display:none}.fest-strip{gap:2px 12px;font-size:11px;letter-spacing:.1em;padding:7px 10px}}
+
+/* ---- Diwali decorations ---- */
+.lights{height:26px;position:relative;overflow:hidden;background:var(--cream)}
+.lights::before,.lights::after{content:'';position:absolute;left:0;right:0;top:0;height:26px;
+  background:
+   radial-gradient(circle at 50% 11px,#ffd36b 0 3px,rgba(255,200,80,.45) 4px,transparent 8px) 0 0/44px 26px repeat-x}
+.lights::after{background-position:22px 6px;background-image:radial-gradient(circle at 50% 11px,#f06292 0 3px,rgba(240,98,146,.4) 4px,transparent 8px);animation:twinkle 2.2s ease-in-out infinite alternate}
+.lights::before{animation:twinkle 2.2s ease-in-out -1.1s infinite alternate}
+.lights{border-bottom:0}
+.lights span{display:none}
+@keyframes twinkle{from{opacity:.35}to{opacity:1}}
+.lights{background:linear-gradient(var(--cream),var(--cream))}
+.lights i{display:none}
+.diyas{display:flex;justify-content:space-around;max-width:900px;margin:30px auto 0;padding:0 20px}
+.diya{width:38px;height:38px;overflow:visible}
+.diya .bowl{fill:#c98a2b}
+.diya .rim{stroke:#8a5a14;stroke-width:1.2;fill:none}
+.diya .flame{fill:#ffb02e;transform-origin:20px 18px;animation:flicker 1.6s ease-in-out infinite;filter:drop-shadow(0 0 5px #ffb02e)}
+.diya:nth-child(even) .flame{animation-delay:-.8s}
+.diya:nth-child(3n) .flame{animation-duration:2.1s}
+@keyframes flicker{0%,100%{transform:scale(1,1) rotate(-2deg)}30%{transform:scale(.88,1.1) rotate(2deg)}60%{transform:scale(1.05,.94) rotate(-1deg)}}
+.hero-img i{position:absolute;top:-10px;width:5px;height:5px;border-radius:50%;background:#ffd36b;box-shadow:0 0 8px 2px rgba(255,210,100,.8);opacity:0;animation:fall linear infinite;pointer-events:none}
+@keyframes fall{0%{transform:translateY(0);opacity:0}10%{opacity:.9}100%{transform:translateY(660px);opacity:0}}
+.festive-hero .hero-txt{position:relative}
+.festive-hero .hero-txt::before{content:'✦';position:absolute;top:34px;right:44px;font-size:22px;color:var(--gold);animation:twinkle 2s ease-in-out infinite alternate}
+.festive-hero .hero-txt::after{content:'✦';position:absolute;bottom:50px;right:100px;font-size:14px;color:var(--rani);animation:twinkle 2.6s ease-in-out -1s infinite alternate}
+.head h2::after{content:'✦';color:var(--gold);font-size:.55em;margin-left:12px;vertical-align:middle}
+@media (prefers-reduced-motion:reduce){.diya .flame,.lights::before,.lights::after,.hero-img i{animation:none}.hero-img i{display:none}}
+@media (max-width:600px){.diya{width:26px;height:26px}}

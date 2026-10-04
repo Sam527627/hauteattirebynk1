@@ -27,6 +27,15 @@ const store = {
 
 let products = store.read('products.json', []);
 const carts = new Map();
+const extras = new Map(); // per-session: promo code, gift wrap, gift message
+
+/* ---- Diwali Festive Edit settings (change here, push, done) ---- */
+const FESTIVE = {
+  name: 'The Festive Edit', diwaliDate: '2026-11-08',
+  code: 'FESTIVE10', percent: 10, minSpend: 5999, expires: '2026-11-15T23:59:59+05:30',
+  giftWrap: 199
+};
+const codeLive = () => Date.now() <= new Date(FESTIVE.expires).getTime();
 const wishlists = new Map();
 const adminTokens = new Set();
 
@@ -92,11 +101,21 @@ function cartView(sid) {
       lineTotal: p.price * line.qty, maxQty: stockFor(p, line.size)
     };
   }).filter(Boolean);
+  const ex = extras.get(sid) || {};
   const subtotal = items.reduce((s, i) => s + i.lineTotal, 0);
   const shipping = subtotal === 0 || subtotal >= 2499 ? 0 : 149;
+  let discount = 0, codeApplied = '', codeNote = '';
+  if (ex.code === FESTIVE.code) {
+    if (!codeLive()) codeNote = 'This code has expired.';
+    else if (subtotal < FESTIVE.minSpend) codeNote = `Add ${rupees(FESTIVE.minSpend - subtotal + 1)} more to use ${FESTIVE.code}.`;
+    else { discount = Math.round(subtotal * FESTIVE.percent / 100); codeApplied = FESTIVE.code; }
+  }
+  const giftWrap = ex.gift && subtotal > 0 ? FESTIVE.giftWrap : 0;
   return {
     items, count: items.reduce((s, i) => s + i.qty, 0),
-    subtotal, shipping, total: subtotal + shipping,
+    subtotal, discount, codeApplied, codeNote, shipping,
+    giftWrap, giftMessage: giftWrap ? String(ex.giftMessage || '') : '',
+    total: subtotal - discount + shipping + giftWrap,
     amountToFreeShipping: subtotal > 0 && subtotal < 2499 ? 2499 - subtotal : 0
   };
 }
@@ -115,6 +134,9 @@ function whatsappLink(order) {
     ...order.items.map(i => `• ${i.name} — size ${i.size} × ${i.qty} — ${rupees(i.lineTotal)}`),
     ``,
     `Subtotal: ${rupees(order.subtotal)}`,
+    order.discount ? `Festive code ${order.codeApplied}: −${rupees(order.discount)}` : '',
+    order.giftWrap ? `Gift wrap: ${rupees(order.giftWrap)}` : '',
+    order.giftMessage ? `Card message: "${order.giftMessage}"` : '',
     `Shipping: ${order.shipping ? rupees(order.shipping) : 'Free'}`,
     `*Total: ${rupees(order.total)}*`,
     ``,
@@ -133,7 +155,7 @@ async function api(req, res, url) {
   const method = req.method;
 
   if (resource === 'config' && method === 'GET') {
-    return send(res, 200, { whatsapp: WHATSAPP, freeShippingOver: 2499 });
+    return send(res, 200, { whatsapp: WHATSAPP, freeShippingOver: 2499, festive: { ...FESTIVE, live: codeLive() } });
   }
 
   if (resource === 'products' && method === 'GET') {
@@ -146,6 +168,9 @@ async function api(req, res, url) {
     let list = publicProducts();
     const q = (url.searchParams.get('q') || '').trim().toLowerCase();
     const category = url.searchParams.get('category');
+    const occasion = url.searchParams.get('occasion');
+    if (occasion) list = list.filter(p => (p.occasions || []).includes(occasion));
+    if (url.searchParams.get('festive')) list = list.filter(p => p.festive);
     const sort = url.searchParams.get('sort');
     if (q) list = list.filter(p => (p.name + ' ' + p.description + ' ' + p.categoryLabel + ' ' + (p.colours || '')).toLowerCase().includes(q));
     if (category && category !== 'all') list = list.filter(p => p.category === category);
@@ -161,6 +186,21 @@ async function api(req, res, url) {
       e.count++; map.set(p.category, e);
     });
     return send(res, 200, { categories: [...map.values()] });
+  }
+
+  if (resource === 'cart' && a === 'extras' && method === 'POST') {
+    const body = await readBody(req);
+    const ex = extras.get(sid) || {};
+    if ('code' in body) {
+      const c = String(body.code || '').trim().toUpperCase();
+      if (c && c !== FESTIVE.code) return send(res, 400, { error: 'That code is not valid' });
+      if (c && !codeLive()) return send(res, 400, { error: 'This code has expired' });
+      ex.code = c;
+    }
+    if ('gift' in body) ex.gift = !!body.gift;
+    if ('giftMessage' in body) ex.giftMessage = String(body.giftMessage || '').slice(0, 200);
+    extras.set(sid, ex);
+    return send(res, 200, cartView(sid));
   }
 
   if (resource === 'cart') {
@@ -236,13 +276,14 @@ async function api(req, res, url) {
       customer: { name: body.name, email: body.email || '', phone: body.phone },
       shipTo: { address: body.address, city: body.city, pincode: body.pincode },
       notes: String(body.notes || '').trim(),
-      items: cart.items, subtotal: cart.subtotal, shipping: cart.shipping, total: cart.total
+      items: cart.items, subtotal: cart.subtotal, discount: cart.discount, codeApplied: cart.codeApplied,
+      giftWrap: cart.giftWrap, giftMessage: cart.giftMessage, shipping: cart.shipping, total: cart.total
     };
     order.whatsappUrl = whatsappLink(order);
     const orders = store.read('orders.json', []);
     orders.push(order);
     store.write('orders.json', orders);
-    carts.delete(sid);
+    carts.delete(sid); extras.delete(sid);
     return send(res, 201, { order });
   }
 

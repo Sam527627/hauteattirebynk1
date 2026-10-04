@@ -28,7 +28,11 @@
       "Bandhej dupatta with gold tissue border",
       "Three-piece unstitched set — kurta, bottom and dupatta",
       "Available in fuchsia, red and mocha"
-    ]
+    ],
+    "occasions": [
+      "navratri"
+    ],
+    "festive": false
   },
   {
     "id": "HA-02",
@@ -59,7 +63,12 @@
       "Organza dupatta with floral zari work",
       "Scalloped embroidered hem",
       "Three-piece set — kurta, trousers and dupatta"
-    ]
+    ],
+    "occasions": [
+      "navratri",
+      "diwali"
+    ],
+    "festive": false
   },
   {
     "id": "HA-03",
@@ -90,7 +99,12 @@
       "Wide zari-bordered dupatta with floral weave",
       "Embroidered scalloped hem",
       "Three-piece set — kurta, trousers and dupatta"
-    ]
+    ],
+    "occasions": [
+      "navratri",
+      "diwali"
+    ],
+    "festive": false
   },
   {
     "id": "HA-04",
@@ -121,7 +135,12 @@
       "Reversible rust and indigo bandhej dupatta",
       "Matching rust bottom included",
       "Three-piece unstitched set"
-    ]
+    ],
+    "occasions": [
+      "navratri",
+      "karwa-chauth"
+    ],
+    "festive": false
   },
   {
     "id": "HA-05",
@@ -152,7 +171,11 @@
       "Matching bandhej dupatta",
       "Rust modal silk bottom included",
       "Three-piece unstitched set"
-    ]
+    ],
+    "occasions": [
+      "navratri"
+    ],
+    "festive": false
   },
   {
     "id": "HA-06",
@@ -183,7 +206,11 @@
       "Gold tissue border panels",
       "Plain black bottom included",
       "Three-piece unstitched set"
-    ]
+    ],
+    "occasions": [
+      "navratri"
+    ],
+    "festive": false
   },
   {
     "id": "HA-07",
@@ -214,7 +241,12 @@
       "Black crochet lace edging",
       "Plain black bottom included",
       "Three-piece unstitched set"
-    ]
+    ],
+    "occasions": [
+      "navratri",
+      "karwa-chauth"
+    ],
+    "festive": false
   },
   {
     "id": "HA-08",
@@ -245,7 +277,12 @@
       "Botanical print dupatta with tissue border",
       "Plain black bottom included",
       "Three-piece unstitched set"
-    ]
+    ],
+    "occasions": [
+      "navratri",
+      "wedding-guest"
+    ],
+    "festive": false
   },
   {
     "id": "HA-09",
@@ -276,7 +313,9 @@
       "Press-stud gusset fastening",
       "Cap sleeve, close fit",
       "Charms are secure but hand wash is kinder"
-    ]
+    ],
+    "occasions": [],
+    "festive": false
   },
   {
     "id": "HA-10",
@@ -307,7 +346,9 @@
       "Press-stud gusset fastening",
       "Cap sleeve, close fit",
       "Pairs with the black colourway"
-    ]
+    ],
+    "occasions": [],
+    "festive": false
   },
   {
     "id": "HA-11",
@@ -338,7 +379,9 @@
       "Ribbed stretch cotton, scoop neck",
       "Press-stud gusset fastening",
       "Wears as a going-out top with denim"
-    ]
+    ],
+    "occasions": [],
+    "festive": false
   },
   {
     "id": "HA-12",
@@ -369,7 +412,9 @@
       "Patch chest pocket and structured cuffs",
       "Relaxed fit, sheer — wear with a slip",
       "Point collar, full button front"
-    ]
+    ],
+    "occasions": [],
+    "festive": false
   },
   {
     "id": "HA-13",
@@ -400,7 +445,9 @@
       "Patch chest pocket and structured cuffs",
       "Relaxed fit, sheer — wear with a slip",
       "Point collar, full button front"
-    ]
+    ],
+    "occasions": [],
+    "festive": false
   },
   {
     "id": "HA-14",
@@ -431,7 +478,9 @@
       "Patch chest pocket and structured cuffs",
       "Relaxed fit, sheer — wear with a slip",
       "Point collar, full button front"
-    ]
+    ],
+    "occasions": [],
+    "festive": false
   },
   {
     "id": "HA-15",
@@ -462,7 +511,9 @@
       "Relaxed shirt with full button front",
       "Wide-leg trousers with elasticated back waist",
       "Two-piece set — shirt and trousers"
-    ]
+    ],
+    "occasions": [],
+    "festive": false
   },
   {
     "id": "HA-16",
@@ -492,7 +543,13 @@
       "Gota-patti and mirror-work neckline and cuffs",
       "Fuchsia palazzo trousers with brocade border",
       "Two-piece set — top and trousers"
-    ]
+    ],
+    "occasions": [
+      "navratri",
+      "diwali",
+      "wedding-guest"
+    ],
+    "festive": true
   },
   {
     "id": "HA-17",
@@ -522,7 +579,13 @@
       "Striped gota-patti and mirror border on placket and hem",
       "Matching organza dupatta with gold gota edging",
       "Three-piece set — kurta, inner slip and dupatta"
-    ]
+    ],
+    "occasions": [
+      "karwa-chauth",
+      "diwali",
+      "wedding-guest"
+    ],
+    "festive": true
   },
   {
     "id": "HA-18",
@@ -552,7 +615,11 @@
       "Cascading organza ruffle detail on both sleeves",
       "Front hook closure, fitted through the waist",
       "Fully lined"
-    ]
+    ],
+    "occasions": [
+      "diwali"
+    ],
+    "festive": false
   },
   {
     "id": "HA-19",
@@ -582,7 +649,11 @@
       "Classic collar shirt with button placket",
       "Matching flared trousers",
       "Two-piece set — shirt and trousers"
-    ]
+    ],
+    "occasions": [
+      "diwali"
+    ],
+    "festive": false
   },
   {
     "id": "HA-20",
@@ -612,7 +683,11 @@
       "Classic collar shirt with button placket",
       "Matching flared trousers",
       "Two-piece set — shirt and trousers"
-    ]
+    ],
+    "occasions": [
+      "diwali"
+    ],
+    "festive": false
   },
   {
     "id": "HA-21",
@@ -642,7 +717,11 @@
       "Gathered waist with a long trailing side drape",
       "Fitted mini silhouette",
       "Concealed back zip"
-    ]
+    ],
+    "occasions": [
+      "wedding-guest"
+    ],
+    "festive": false
   },
   {
     "id": "HA-22",
@@ -667,7 +746,9 @@
       "Relaxed, slightly oversized fit",
       "Curved hem, structured collar and cuffs",
       "One free size"
-    ]
+    ],
+    "occasions": [],
+    "festive": false
   },
   {
     "id": "HA-23",
@@ -692,7 +773,9 @@
       "Relaxed, slightly oversized fit",
       "Curved hem, structured collar and cuffs",
       "One free size"
-    ]
+    ],
+    "occasions": [],
+    "festive": false
   },
   {
     "id": "HA-24",
@@ -722,7 +805,13 @@
       "Matching brocade cuffs on full sleeves",
       "Floral-embroidered net dupatta with gold fringe edge",
       "Concealed back zip, fully lined"
-    ]
+    ],
+    "occasions": [
+      "karwa-chauth",
+      "diwali",
+      "wedding-guest"
+    ],
+    "festive": true
   },
   {
     "id": "HA-25",
@@ -752,7 +841,12 @@
       "Heavily embroidered net dupatta in floral gold and pink thread work",
       "Gold fringe trim along the dupatta edge",
       "Concealed back zip"
-    ]
+    ],
+    "occasions": [
+      "diwali",
+      "wedding-guest"
+    ],
+    "festive": true
   },
   {
     "id": "HA-26",
@@ -782,7 +876,11 @@
       "Gota-patti bordered neckline",
       "Cocoon sleeves, relaxed kaftan silhouette",
       "Side slits for ease of movement"
-    ]
+    ],
+    "occasions": [
+      "karwa-chauth"
+    ],
+    "festive": false
   },
   {
     "id": "HA-27",
@@ -812,7 +910,11 @@
       "Structured shoulders, fitted waist",
       "Front hook-and-eye closure",
       "Two embroidered flap pockets"
-    ]
+    ],
+    "occasions": [
+      "diwali"
+    ],
+    "festive": true
   },
   {
     "id": "HA-28",
@@ -842,6 +944,46 @@
       "Draped ruching through the body",
       "Fabric rosette detail at shoulder and waist",
       "High neck, long sleeves, fitted mini length"
-    ]
+    ],
+    "occasions": [
+      "karwa-chauth"
+    ],
+    "festive": false
+  },
+  {
+    "id": "HA-29",
+    "slug": "sona-crushed-tissue-anarkali-set",
+    "name": "Sona crushed tissue anarkali set",
+    "category": "occasion-wear",
+    "categoryLabel": "Occasion Wear",
+    "price": 7950,
+    "mrp": null,
+    "image": "/images/sona.jpg",
+    "badge": "New",
+    "published": true,
+    "stock": {
+      "XS": 2,
+      "S": 2,
+      "M": 2,
+      "L": 2,
+      "XL": 2
+    },
+    "fabric": "Crushed tissue with chiffon dupatta",
+    "care": "Dry clean only",
+    "colours": "Gold and rani pink",
+    "description": "A crushed-tissue anarkali in antique gold that catches every lamp in the room, with flared sleeves and tiered gold fringe at the cuffs and hem. Worn with a rani pink chiffon dupatta edged in matching fringe — made for Diwali evenings.",
+    "details": [
+      "Crushed tissue anarkali with a piped notch neckline",
+      "Flared three-quarter sleeves with tiered gold fringe",
+      "Rani pink chiffon dupatta with fringe edge",
+      "Cut in a small run in Delhi"
+    ],
+    "occasions": [
+      "diwali",
+      "navratri",
+      "wedding-guest",
+      "karwa-chauth"
+    ],
+    "festive": true
   }
 ]
