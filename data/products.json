@@ -280,7 +280,7 @@
     ],
     "occasions": [
       "navratri",
-      "wedding-guest"
+      "shaadi"
     ],
     "festive": false
   },
@@ -547,7 +547,7 @@
     "occasions": [
       "navratri",
       "diwali",
-      "wedding-guest"
+      "shaadi"
     ],
     "festive": true
   },
@@ -583,7 +583,7 @@
     "occasions": [
       "karwa-chauth",
       "diwali",
-      "wedding-guest"
+      "shaadi"
     ],
     "festive": true
   },
@@ -617,7 +617,8 @@
       "Fully lined"
     ],
     "occasions": [
-      "diwali"
+      "diwali",
+      "shaadi"
     ],
     "festive": false
   },
@@ -651,7 +652,8 @@
       "Two-piece set — shirt and trousers"
     ],
     "occasions": [
-      "diwali"
+      "diwali",
+      "shaadi"
     ],
     "festive": false
   },
@@ -685,7 +687,8 @@
       "Two-piece set — shirt and trousers"
     ],
     "occasions": [
-      "diwali"
+      "diwali",
+      "shaadi"
     ],
     "festive": false
   },
@@ -719,7 +722,7 @@
       "Concealed back zip"
     ],
     "occasions": [
-      "wedding-guest"
+      "shaadi"
     ],
     "festive": false
   },
@@ -809,7 +812,7 @@
     "occasions": [
       "karwa-chauth",
       "diwali",
-      "wedding-guest"
+      "shaadi"
     ],
     "festive": true
   },
@@ -844,7 +847,7 @@
     ],
     "occasions": [
       "diwali",
-      "wedding-guest"
+      "shaadi"
     ],
     "festive": true
   },
@@ -912,7 +915,8 @@
       "Two embroidered flap pockets"
     ],
     "occasions": [
-      "diwali"
+      "diwali",
+      "shaadi"
     ],
     "festive": true
   },
@@ -946,7 +950,8 @@
       "High neck, long sleeves, fitted mini length"
     ],
     "occasions": [
-      "karwa-chauth"
+      "karwa-chauth",
+      "shaadi"
     ],
     "festive": false
   },
@@ -981,8 +986,8 @@
     "occasions": [
       "diwali",
       "navratri",
-      "wedding-guest",
-      "karwa-chauth"
+      "karwa-chauth",
+      "shaadi"
     ],
     "festive": true
   }

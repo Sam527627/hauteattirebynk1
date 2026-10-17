@@ -103,7 +103,7 @@ function skeletonGrid(n = 8) {
 async function buildNav() {
   const { categories } = await api('/categories');
   document.getElementById('navList').innerHTML =
-    `<li><a href="#/occasion/diwali" class="fest-link">Festive Edit</a></li><li><a href="#/shop">New in</a></li>` +
+    `<li><a href="#/occasion/shaadi" class="fest-link">Shaadi Edit</a></li><li><a href="#/occasion/diwali">Festive Edit</a></li><li><a href="#/shop">New in</a></li>` +
     categories.map(c => `<li><a href="#/shop/${c.slug}">${esc(c.label)}</a></li>`).join('') +
     `<li><a href="#/help/sizing">Size guide</a></li><li><a href="#/help/ordering">How to order</a></li>`;
 }
@@ -111,7 +111,7 @@ async function buildNav() {
 function buildPromo() {
   const f = state.config.festive;
   const msgs = [
-    ...(f && f.live ? [`The Festive Edit — Diwali 2026`, `Use ${f.code} for ${f.percent}% off orders over ${rupees(f.minSpend)}`] : []),
+    ...(f && f.live ? [`New: The Shaadi Edit`, `The Festive Edit — Diwali 2026`, `Use ${f.code} for ${f.percent}% off orders over ${rupees(f.minSpend)}`] : []),
     'Free shipping on orders over ₹2,499',
     'Order over WhatsApp — we confirm within the hour',
     'Every product cut in a small run',
@@ -209,7 +209,7 @@ function buildFestStrip() {
   const f = state.config.festive;
   const el = document.getElementById('festStrip');
   if (!f || !f.live) { el.hidden = true; return; }
-  el.innerHTML = `<span>The Festive Edit · Diwali 2026</span>
+  el.innerHTML = `<span>New: The Shaadi Edit</span>
     <i></i><span>Use <b>${esc(f.code)}</b> for ${f.percent}% off over ${rupees(f.minSpend)}</span>`;
   el.hidden = false;
 }
@@ -277,7 +277,7 @@ const OCCASIONS = {
   navratri: { label: 'Navratri', line: 'Nine nights, nine colours — bandhani and tissue that move with the dance.' },
   'karwa-chauth': { label: 'Karwa Chauth', line: 'Reds, maroons and rust, finished for a long evening of waiting for the moon.' },
   diwali: { label: 'Diwali', line: 'Sequins, brocade and organza for the night the whole house is lit.' },
-  'wedding-guest': { label: 'Wedding guest', line: 'Dressed for the sangeet, never upstaging the bride.' }
+  shaadi: { label: 'The Shaadi Edit', line: 'Sangeet, mehendi, reception — sequins, brocade and tissue for the whole wedding season.' }
 };
 const diya = `<svg viewBox="0 0 40 40" class="diya"><path class="flame" d="M20 4c3 5 5 8 0 14-5-6-3-9 0-14z"/><path class="bowl" d="M4 24h32c0 8-7 13-16 13S4 32 4 24z"/><path class="rim" d="M4 24h32" /></svg>`;
 const sparkles = Array.from({ length: 16 }, (_, i) => `<i style="left:${(i * 37 + 8) % 96}%;animation-delay:${(i * 0.7) % 6}s;animation-duration:${6 + (i % 5)}s"></i>`).join('');
@@ -308,8 +308,9 @@ async function viewHome() {
   const festive = products.filter(p => p.festive);
   const six = (festive.length ? festive : products.filter(p => p.price >= 5000)).slice(0, 6);
   const by = slug => products.find(p => p.slug === slug);
-  const hero = by('sona-crushed-tissue-anarkali-set') || six[0] || products[0];
-  const spot = by('black-gold-brocade-hem-anarkali') || six[1] || products[1] || hero;
+  const hero = by('black-gold-brocade-hem-anarkali') || six[0] || products[0];
+  const spot = by('sona-crushed-tissue-anarkali-set') || six[1] || products[1] || hero;
+  const shaadi = products.filter(p => (p.occasions || []).includes('shaadi')).slice(0, 8);
   const newIn = products.filter(p => p.badge === 'New').slice(0, 8);
   const occTiles = Object.entries(OCCASIONS).map(([k, v]) => {
     const p = products.find(x => (x.occasions || []).includes(k));
@@ -320,10 +321,10 @@ async function viewHome() {
     <div class="hero festive-hero">
       <div class="hero-img"><img src="${hero.image}" alt="${esc(hero.name)}"><span class="glint"></span>${sparkles}</div>
       <div class="hero-txt">
-        <p class="eyebrow">The Festive Edit · Diwali 2026</p>
-        <h1>Dressed for<br>the light</h1>
-        <p>Tissue, brocade and hand-finished organza — cut in small runs in Delhi for the season of lamps, gifting and long evenings. Every Diwali piece under ₹8,000.</p>
-        <div class="cta-row"><a class="btn rani" href="#/occasion/diwali">Shop the Festive Edit</a><a class="link-u" href="#/shop">All products</a></div>
+        <p class="eyebrow">New · The Shaadi Edit</p>
+        <h1>Made for the<br>wedding season</h1>
+        <p>Sequins, brocade and tissue for the sangeet, the mehendi and every cousin’s reception — cut in small runs in Delhi. New pieces, from ₹3,990.</p>
+        <div class="cta-row"><a class="btn rani" href="#/occasion/shaadi">Shop the Shaadi Edit</a><a class="link-u" href="#/occasion/diwali">Diwali pieces</a></div>
       </div>
     </div>
     <div class="diyas" aria-hidden="true">${diya.repeat(9)}</div>
@@ -339,11 +340,18 @@ async function viewHome() {
       </div>
     </section>
 
+    <section style="padding-top:0">
+      <div class="wrap">
+        <div class="head reveal"><h2>The Shaadi Edit</h2><a class="meta" href="#/occasion/shaadi">See all ${shaadi.length}+</a></div>
+        <div class="grid stagger">${shaadi.map(cardHtml).join('')}</div>
+      </div>
+    </section>
+
     <section class="spot-sec">
       <div class="wrap"><div class="spot reveal">
         <a class="spot-img" href="#/product/${spot.slug}"><img src="${spot.image}" alt="${esc(spot.name)}" loading="lazy"></a>
         <div class="spot-txt">
-          <p class="eyebrow">Spotlight</p>
+          <p class="eyebrow">Diwali spotlight</p>
           <h2>${esc(spot.name)}</h2>
           <p>${esc(spot.description)}</p>
           <p class="spot-price">${rupees(spot.price)}</p>
@@ -986,7 +994,7 @@ async function router() {
       case undefined: await viewHome(); break;
       case 'shop': await viewShop(parts[1] || null, null); break;
       case 'search': await viewShop(null, decodeURIComponent(parts[1] || '')); break;
-      case 'occasion': await viewOccasion(parts[1]); break;
+      case 'occasion': await viewOccasion(parts[1] === 'wedding-guest' ? 'shaadi' : parts[1]); break;
       case 'product': await viewProduct(parts[1]); break;
       case 'cart': await viewCart(); break;
       case 'checkout': await viewCheckout(); break;
