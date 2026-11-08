@@ -70,17 +70,24 @@ function flyToBag(imgEl) {
 /* ---------- shared markup ---------- */
 const heartIcon = `<svg viewBox="0 0 24 24" width="15" height="15"><path d="M12 20S3.5 14.5 3.5 8.9A4.4 4.4 0 0 1 12 7a4.4 4.4 0 0 1 8.5 1.9C20.5 14.5 12 20 12 20z"/></svg>`;
 
-const priceHtml = p => p.mrp && p.mrp > p.price
-  ? `<em>${rupees(p.price)}</em> <s>${rupees(p.mrp)}</s>`
-  : rupees(p.price);
+const dwOff = p => {
+  const f = state.config && state.config.festive;
+  return f && f.live && p.price >= f.minSpend ? Math.round(p.price * f.percent / 100) : 0;
+};
+const priceHtml = p => dwOff(p)
+  ? `<em>${rupees(p.price - dwOff(p))}</em> <s>${rupees(p.price)}</s>`
+  : p.mrp && p.mrp > p.price
+    ? `<em>${rupees(p.price)}</em> <s>${rupees(p.mrp)}</s>`
+    : rupees(p.price);
 
 function cardHtml(p) {
   const saved = state.wishlist.includes(p.id);
-  const off = p.mrp && p.mrp > p.price ? Math.round((1 - p.price / p.mrp) * 100) : 0;
+  const f = state.config && state.config.festive;
+  const off = dwOff(p) ? f.percent : p.mrp && p.mrp > p.price ? Math.round((1 - p.price / p.mrp) * 100) : 0;
   return `<a class="card" href="#/product/${p.slug}">
     <div class="shot">
       <img src="${p.image}" alt="${esc(p.name)}" loading="lazy">
-      ${off ? `<span class="tag off">−${off}%</span>` : p.badge ? `<span class="tag">${esc(p.badge)}</span>` : ''}
+      ${off ? `<span class="tag off ${dwOff(p) ? 'dw' : ''}">${dwOff(p) ? 'Diwali ' : ''}−${off}%</span>` : p.badge ? `<span class="tag">${esc(p.badge)}</span>` : ''}
       <button class="wish ${saved ? 'on' : ''}" data-wish="${p.id}" aria-label="Save ${esc(p.name)}">${heartIcon}</button>
       <span class="quick">View product</span>
     </div>
@@ -103,7 +110,7 @@ function skeletonGrid(n = 8) {
 async function buildNav() {
   const { categories } = await api('/categories');
   document.getElementById('navList').innerHTML =
-    `<li><a href="#/occasion/shaadi" class="fest-link">Shaadi Edit</a></li><li><a href="#/occasion/diwali">Festive Edit</a></li><li><a href="#/shop">New in</a></li>` +
+    `<li><a href="#/occasion/diwali" class="fest-link">Diwali Week</a></li><li><a href="#/occasion/shaadi">Shaadi Edit</a></li><li><a href="#/shop">New in</a></li>` +
     categories.map(c => `<li><a href="#/shop/${c.slug}">${esc(c.label)}</a></li>`).join('') +
     `<li><a href="#/help/sizing">Size guide</a></li><li><a href="#/help/ordering">How to order</a></li>`;
 }
@@ -111,7 +118,7 @@ async function buildNav() {
 function buildPromo() {
   const f = state.config.festive;
   const msgs = [
-    ...(f && f.live ? [`New: The Shaadi Edit`, `The Festive Edit — Diwali 2026`, `Use ${f.code} for ${f.percent}% off orders over ${rupees(f.minSpend)}`] : []),
+    ...(f && f.live ? [`Shubh Diwali — ${f.percent}% off sitewide this week`, `Applied automatically in your bag · ends ${new Date(f.expires).toLocaleDateString('en-IN', { day: 'numeric', month: 'long' })}`] : []),
     'Free shipping on orders over ₹2,499',
     'Order over WhatsApp — we confirm within the hour',
     'Every product cut in a small run',
@@ -143,7 +150,7 @@ function shippingBar(c) {
 /* ---------- festive: totals rows, code + gift wrap ---------- */
 function totalRows(c) {
   return `<div class="row"><span>Subtotal</span><span>${rupees(c.subtotal)}</span></div>
-    ${c.discount ? `<div class="row fest"><span>${esc(c.codeApplied)} · ${state.config.festive.percent}% off</span><span>−${rupees(c.discount)}</span></div>` : ''}
+    ${c.discount ? `<div class="row fest"><span>Diwali offer · ${Math.round(c.discount * 100 / c.subtotal)}% off</span><span>−${rupees(c.discount)}</span></div>` : ''}
     ${c.giftWrap ? `<div class="row"><span>Gift wrap</span><span>${rupees(c.giftWrap)}</span></div>` : ''}
     <div class="row"><span>Shipping</span><span>${c.shipping ? rupees(c.shipping) : 'Free'}</span></div>`;
 }
@@ -155,10 +162,10 @@ function extrasHtml(c) {
     <div class="code-box">
       <label for="codeInput">Festive code</label>
       <div class="code-row">
-        <input id="codeInput" placeholder="${esc(f.code)}" value="${esc(c.codeApplied || '')}" autocomplete="off" autocapitalize="characters">
-        <button type="button" id="applyCode">${c.codeApplied ? 'Remove' : 'Apply'}</button>
+        <input id="codeInput" placeholder="${esc(f.code)}" value="${esc(c.auto ? '' : c.codeApplied || '')}" autocomplete="off" autocapitalize="characters">
+        <button type="button" id="applyCode">${c.codeApplied && !c.auto ? 'Remove' : 'Apply'}</button>
       </div>
-      <p class="code-msg ${c.codeApplied ? 'good' : ''}" id="codeMsg">${c.codeApplied ? `You saved ${rupees(c.discount)}.` : esc(c.codeNote || `${f.percent}% off orders over ${rupees(f.minSpend)}.`)}</p>
+      <p class="code-msg ${c.codeApplied ? 'good' : ''}" id="codeMsg">${c.codeApplied ? `${c.auto ? 'Diwali offer applied automatically — ' : ''}you saved ${rupees(c.discount)}.` : esc(c.codeNote || `Diwali week: ${f.percent}% off sitewide.`)}</p>
     </div>` : '';
   return `<div class="extras">${codeBox}
     <label class="gift"><input type="checkbox" id="giftToggle" ${c.giftWrap ? 'checked' : ''}>
@@ -178,7 +185,7 @@ async function setExtras(body) {
 document.addEventListener('click', async e => {
   if (e.target.id === 'applyCode') {
     const input = document.getElementById('codeInput');
-    const removing = state.cart && state.cart.codeApplied;
+    const removing = state.cart && state.cart.codeApplied && !state.cart.auto;
     try {
       const c = await setExtras({ code: removing ? '' : input.value });
       toast(removing ? 'Code removed' : c.codeApplied ? 'Festive code applied' : 'Code saved — it applies once your bag qualifies');
@@ -209,8 +216,8 @@ function buildFestStrip() {
   const f = state.config.festive;
   const el = document.getElementById('festStrip');
   if (!f || !f.live) { el.hidden = true; return; }
-  el.innerHTML = `<span>New: The Shaadi Edit</span>
-    <i></i><span>Use <b>${esc(f.code)}</b> for ${f.percent}% off over ${rupees(f.minSpend)}</span>`;
+  el.innerHTML = `<span>Shubh Diwali</span>
+    <i></i><span><b>${f.percent}% off sitewide</b> · applied in your bag · ends ${new Date(f.expires).toLocaleDateString('en-IN', { day: 'numeric', month: 'long' })}</span>`;
   el.hidden = false;
 }
 function tickCountdown() {
@@ -277,10 +284,20 @@ const OCCASIONS = {
   navratri: { label: 'Navratri', line: 'Nine nights, nine colours — bandhani and tissue that move with the dance.' },
   'karwa-chauth': { label: 'Karwa Chauth', line: 'Reds, maroons and rust, finished for a long evening of waiting for the moon.' },
   diwali: { label: 'Diwali', line: 'Sequins, brocade and organza for the night the whole house is lit.' },
+  gifting: { label: 'Diwali gifting', line: 'Pieces under ₹5,500 that wrap beautifully — add gift wrap and a handwritten card in your bag.' },
   shaadi: { label: 'The Shaadi Edit', line: 'Sangeet, mehendi, reception — sequins, brocade and tissue for the whole wedding season.' }
 };
 const diya = `<svg viewBox="0 0 40 40" class="diya"><path class="flame" d="M20 4c3 5 5 8 0 14-5-6-3-9 0-14z"/><path class="bowl" d="M4 24h32c0 8-7 13-16 13S4 32 4 24z"/><path class="rim" d="M4 24h32" /></svg>`;
-const sparkles = Array.from({ length: 16 }, (_, i) => `<i style="left:${(i * 37 + 8) % 96}%;animation-delay:${(i * 0.7) % 6}s;animation-duration:${6 + (i % 5)}s"></i>`).join('');
+const lantern = (x, len, d, s) => `<div class="lantern" style="left:${x}%;--len:${len}px;--d:${d}s;--s:${s}"><i></i>
+  <svg viewBox="0 0 60 110"><path class="cap" d="M22 6h16l4 10H18z"/><path class="body" d="M30 16 52 52 30 100 8 52z"/><path class="rib" d="M30 16v84M8 52h44M19 34 41 70M41 34 19 70"/><circle class="glow" cx="30" cy="54" r="9"/><path class="tail" d="M30 100v10"/></svg></div>`;
+const rangoli = (() => {
+  let p = '';
+  for (let r = 0; r < 16; r++) p += `<ellipse cx="200" cy="92" rx="13" ry="42" transform="rotate(${r * 22.5} 200 200)"/>`;
+  for (let r = 0; r < 12; r++) p += `<path d="M200 38 L212 62 L200 86 L188 62Z" transform="rotate(${r * 30} 200 200)"/>`;
+  return `<svg class="rangoli" viewBox="0 0 400 400" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="1">${p}
+    <circle cx="200" cy="200" r="190"/><circle cx="200" cy="200" r="175" stroke-dasharray="2 7"/><circle cx="200" cy="200" r="120"/><circle cx="200" cy="200" r="70"/><circle cx="200" cy="200" r="20"/></g></svg>`;
+})();
+const embers = Array.from({ length: 22 }, (_, i) => `<i style="left:${(i * 53 + 7) % 98}%;animation-delay:${(i * 0.9) % 9}s;animation-duration:${8 + (i % 6)}s;--dx:${(i % 2 ? 1 : -1) * (10 + (i % 5) * 6)}px"></i>`).join('');
 const notch = `<svg class="notch" viewBox="0 0 600 24" preserveAspectRatio="none" aria-hidden="true"><path d="M0 2 H255 Q275 2 285 12 L300 22 L315 12 Q325 2 345 2 H600" fill="none" stroke="currentColor" stroke-width="1.2"/></svg>`;
 
 async function viewOccasion(slug) {
@@ -305,56 +322,83 @@ async function viewOccasion(slug) {
 async function viewHome() {
   const [{ products }, { categories }] = await Promise.all([api('/products'), api('/categories')]);
   const f = state.config.festive;
-  const festive = products.filter(p => p.festive);
-  const six = (festive.length ? festive : products.filter(p => p.price >= 5000)).slice(0, 6);
   const by = slug => products.find(p => p.slug === slug);
-  const hero = by('black-gold-brocade-hem-anarkali') || six[0] || products[0];
-  const spot = by('sona-crushed-tissue-anarkali-set') || six[1] || products[1] || hero;
+  const hero = by('sona-crushed-tissue-anarkali-set') || products[0];
+  const spot = by('black-gold-brocade-hem-anarkali') || products[1] || hero;
+  const diwali = products.filter(p => (p.occasions || []).includes('diwali') && p.id !== hero.id)
+    .sort((x, y) => (y.festive ? 1 : 0) - (x.festive ? 1 : 0)).slice(0, 8);
   const shaadi = products.filter(p => (p.occasions || []).includes('shaadi')).slice(0, 8);
   const newIn = products.filter(p => p.badge === 'New').slice(0, 8);
-  const occTiles = Object.entries(OCCASIONS).map(([k, v]) => {
-    const p = products.find(x => (x.occasions || []).includes(k));
-    return p ? { k, v, p, n: products.filter(x => (x.occasions || []).includes(k)).length } : null;
+  const endDate = f ? new Date(f.expires).toLocaleDateString('en-IN', { day: 'numeric', month: 'long' }) : '';
+  const tiles = ['diwali', 'gifting', 'shaadi'].map(k => {
+    const list = products.filter(x => (x.occasions || []).includes(k));
+    const pick = products.find(x => x.id === { diwali: 'HA-17', gifting: 'HA-16', shaadi: 'HA-28' }[k]) || list[0];
+    return list.length ? { k, v: OCCASIONS[k], p: pick, n: list.length } : null;
   }).filter(Boolean);
 
   app.innerHTML = `
-    <div class="hero festive-hero">
-      <div class="hero-img"><img src="${hero.image}" alt="${esc(hero.name)}"><span class="glint"></span>${sparkles}</div>
-      <div class="hero-txt">
-        <p class="eyebrow">New · The Shaadi Edit</p>
-        <h1>Made for the<br>wedding season</h1>
-        <p>Sequins, brocade and tissue for the sangeet, the mehendi and every cousin’s reception — cut in small runs in Delhi. New pieces, from ₹3,990.</p>
-        <div class="cta-row"><a class="btn rani" href="#/occasion/shaadi">Shop the Shaadi Edit</a><a class="link-u" href="#/occasion/diwali">Diwali pieces</a></div>
+    <section class="dw-hero">
+      <div class="dw-bg">${rangoli}<div class="embers">${embers}</div></div>
+      <div class="lanterns" aria-hidden="true">
+        ${lantern(46, 50, 5.5, 0.8)}${lantern(55, 110, 6.5, 1)}${lantern(70, 70, 6, 0.85)}${lantern(95, 120, 5, 0.9)}
       </div>
-    </div>
-    <div class="diyas" aria-hidden="true">${diya.repeat(9)}</div>
+      <div class="wrap dw-grid">
+        <div class="dw-copy">
+          <p class="dw-eyebrow">Shubh Diwali · Diwali Week 2026</p>
+          <h1>Light up<br><em>every evening</em></h1>
+          <p class="dw-sub">Crushed tissue, brocade and hand-finished organza — cut in small runs in Delhi for the festival of lights. This week only.</p>
+          <div class="dw-offer">
+            <div class="medal"><b>${f ? f.percent : 15}%</b><span>OFF</span></div>
+            <p><strong>Sitewide, no code needed.</strong><br>Applied automatically in your bag · ends ${endDate}</p>
+          </div>
+          <div class="cta-row"><a class="btn gold" href="#/occasion/diwali">Shop Diwali Week</a><a class="link-u light" href="#/occasion/shaadi">The Shaadi Edit</a></div>
+        </div>
+        <a class="dw-arch" href="#/product/${hero.slug}">
+          <img src="${hero.image}" alt="${esc(hero.name)}">
+          <span class="dw-cap"><em>${esc(hero.name)}</em>${rupees(hero.price - dwOff(hero))} <s>${rupees(hero.price)}</s></span>
+        </a>
+      </div>
+      <div class="dw-diyas" id="dwDiyas" aria-hidden="true">${diya.repeat(11)}</div>
+    </section>
 
-    <section>
+    <section class="dw-picks">
       <div class="wrap">
-        <div class="head reveal"><h2>Shop by occasion</h2><span class="meta">Four ways to celebrate</span></div>
-        <div class="occ stagger">
-          ${occTiles.map(({ k, v, p, n }) => `<a class="occ-tile" href="#/occasion/${k}">
+        <div class="head reveal"><h2>Diwali Week picks</h2><a class="meta" href="#/occasion/diwali">See all ${products.filter(p => (p.occasions || []).includes('diwali')).length}</a></div>
+        <div class="grid stagger">${diwali.map(cardHtml).join('')}</div>
+      </div>
+    </section>
+
+    <section style="padding-top:0">
+      <div class="wrap">
+        <div class="head reveal"><h2>Shop the celebration</h2><span class="meta">Three ways to dress for it</span></div>
+        <div class="occ occ3 stagger">
+          ${tiles.map(({ k, v, p, n }) => `<a class="occ-tile" href="#/occasion/${k}">
             <img src="${p.image}" alt="${esc(v.label)}" loading="lazy">
             <span><em>${n} ${n === 1 ? 'product' : 'products'}</em>${esc(v.label)}</span></a>`).join('')}
         </div>
       </div>
     </section>
 
-    <section style="padding-top:0">
-      <div class="wrap">
-        <div class="head reveal"><h2>The Shaadi Edit</h2><a class="meta" href="#/occasion/shaadi">See all ${shaadi.length}+</a></div>
-        <div class="grid stagger">${shaadi.map(cardHtml).join('')}</div>
-      </div>
+    <section class="dw-gift">
+      <div class="wrap"><div class="dw-gift-in reveal">
+        <div class="dw-gift-txt">
+          <p class="dw-eyebrow">Diwali gifting</p>
+          <h2>Wrapped like it matters</h2>
+          <p>Add gift wrap in your bag for ${rupees(f ? f.giftWrap : 199)} and write a message — we put it on a handwritten card and ship it straight to them.</p>
+          <div class="cta-row"><a class="btn gold" href="#/occasion/gifting">Shop gifts</a><a class="link-u light" href="#/cart">Open my bag</a></div>
+        </div>
+        <div class="dw-box" aria-hidden="true"><div class="ribbon-v"></div><div class="ribbon-h"></div><div class="bow"></div></div>
+      </div></div>
     </section>
 
-    <section class="spot-sec">
+    <section class="spot-sec" style="padding-top:clamp(40px,6vw,90px)">
       <div class="wrap"><div class="spot reveal">
         <a class="spot-img" href="#/product/${spot.slug}"><img src="${spot.image}" alt="${esc(spot.name)}" loading="lazy"></a>
         <div class="spot-txt">
-          <p class="eyebrow">Diwali spotlight</p>
+          <p class="eyebrow">Spotlight</p>
           <h2>${esc(spot.name)}</h2>
           <p>${esc(spot.description)}</p>
-          <p class="spot-price">${rupees(spot.price)}</p>
+          <p class="spot-price">${rupees(spot.price - dwOff(spot))} <s>${rupees(spot.price)}</s></p>
           <a class="btn rani" href="#/product/${spot.slug}" style="max-width:260px">View product</a>
         </div>
       </div></div>
@@ -362,24 +406,9 @@ async function viewHome() {
 
     <section style="padding-top:0">
       <div class="wrap">
-        <div class="head reveal"><h2>Festive, under ₹8,000</h2><a class="meta" href="#/occasion/diwali">See all Diwali</a></div>
-        <div class="grid stagger">${six.map(cardHtml).join('')}</div>
+        <div class="head reveal"><h2>The Shaadi Edit</h2><a class="meta" href="#/occasion/shaadi">See all</a></div>
+        <div class="grid stagger">${shaadi.map(cardHtml).join('')}</div>
       </div>
-    </section>
-
-    <section class="offer">
-      <div class="wrap"><div class="offer-in reveal">
-        <div>
-          <p class="eyebrow">Festive offer</p>
-          <h2>${f ? f.percent : 10}% off, for the season</h2>
-          <p>${f && f.live ? `Use <b>${esc(f.code)}</b> in your bag on orders over ${rupees(f.minSpend)}. Valid until ${new Date(f.expires).toLocaleDateString('en-IN', { day: 'numeric', month: 'long' })}.` : 'Look out for our next offer.'}</p>
-        </div>
-        <div class="gift-card">
-          <h3>Sending it as a gift?</h3>
-          <p>Add gift wrap in your bag for ${rupees(f ? f.giftWrap : 199)}. Write a message and we’ll put it on a handwritten card.</p>
-          <a class="link-u" href="#/cart">Open my bag</a>
-        </div>
-      </div></div>
     </section>
 
     <section>
@@ -440,6 +469,7 @@ async function viewHome() {
         </div>
       </div></div>
     </section>`;
+  setTimeout(() => { const d = document.getElementById('dwDiyas'); if (d) d.classList.add('lit'); }, 500);
   observeReveals();
 }
 

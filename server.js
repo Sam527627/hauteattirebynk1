@@ -31,11 +31,17 @@ const extras = new Map(); // per-session: promo code, gift wrap, gift message
 
 /* ---- Diwali Festive Edit settings (change here, push, done) ---- */
 const FESTIVE = {
-  name: 'The Festive Edit', diwaliDate: '2026-11-08',
-  code: 'FESTIVE10', percent: 10, minSpend: 5999, expires: '2026-11-15T23:59:59+05:30',
+  name: 'Diwali Week', diwaliDate: '2026-11-08',
+  code: 'DIWALI15', percent: 15, minSpend: 2999, expires: '2026-11-14T23:59:59+05:30',
   giftWrap: 199
 };
-const codeLive = () => Date.now() <= new Date(FESTIVE.expires).getTime();
+// every code that works in the bag (the first is the headline offer and is applied automatically)
+const CODES = {
+  DIWALI15: { percent: 15, minSpend: 2999, expires: '2026-11-14T23:59:59+05:30' },
+  FESTIVE10: { percent: 10, minSpend: 5999, expires: '2026-11-15T23:59:59+05:30' }
+};
+const live = c => CODES[c] && Date.now() <= new Date(CODES[c].expires).getTime();
+const codeLive = () => live(FESTIVE.code);
 const wishlists = new Map();
 const adminTokens = new Set();
 
@@ -104,16 +110,24 @@ function cartView(sid) {
   const ex = extras.get(sid) || {};
   const subtotal = items.reduce((s, i) => s + i.lineTotal, 0);
   const shipping = subtotal === 0 || subtotal >= 2499 ? 0 : 149;
-  let discount = 0, codeApplied = '', codeNote = '';
-  if (ex.code === FESTIVE.code) {
-    if (!codeLive()) codeNote = 'This code has expired.';
-    else if (subtotal < FESTIVE.minSpend) codeNote = `Add ${rupees(FESTIVE.minSpend - subtotal + 1)} more to use ${FESTIVE.code}.`;
-    else { discount = Math.round(subtotal * FESTIVE.percent / 100); codeApplied = FESTIVE.code; }
+  let discount = 0, codeApplied = '', codeNote = '', auto = false;
+  const tryCode = c => {
+    const d = CODES[c];
+    if (!d || !live(c) || subtotal < d.minSpend) return 0;
+    return Math.round(subtotal * d.percent / 100);
+  };
+  const typed = String(ex.code || '').toUpperCase();
+  if (typed && CODES[typed]) {
+    if (!live(typed)) codeNote = 'This code has expired.';
+    else if (subtotal < CODES[typed].minSpend) codeNote = `Add ${rupees(CODES[typed].minSpend - subtotal + 1)} more to use ${typed}.`;
   }
+  const typedOff = tryCode(typed), autoOff = tryCode(FESTIVE.code);
+  if (autoOff >= typedOff && autoOff > 0) { discount = autoOff; codeApplied = FESTIVE.code; auto = typed !== FESTIVE.code; }
+  else if (typedOff > 0) { discount = typedOff; codeApplied = typed; }
   const giftWrap = ex.gift && subtotal > 0 ? FESTIVE.giftWrap : 0;
   return {
     items, count: items.reduce((s, i) => s + i.qty, 0),
-    subtotal, discount, codeApplied, codeNote, shipping,
+    subtotal, discount, codeApplied, codeNote, auto, shipping,
     giftWrap, giftMessage: giftWrap ? String(ex.giftMessage || '') : '',
     total: subtotal - discount + shipping + giftWrap,
     amountToFreeShipping: subtotal > 0 && subtotal < 2499 ? 2499 - subtotal : 0
@@ -134,7 +148,7 @@ function whatsappLink(order) {
     ...order.items.map(i => `• ${i.name} — size ${i.size} × ${i.qty} — ${rupees(i.lineTotal)}`),
     ``,
     `Subtotal: ${rupees(order.subtotal)}`,
-    order.discount ? `Festive code ${order.codeApplied}: −${rupees(order.discount)}` : '',
+    order.discount ? `Diwali offer (${order.codeApplied}): −${rupees(order.discount)}` : '',
     order.giftWrap ? `Gift wrap: ${rupees(order.giftWrap)}` : '',
     order.giftMessage ? `Card message: "${order.giftMessage}"` : '',
     `Shipping: ${order.shipping ? rupees(order.shipping) : 'Free'}`,
@@ -193,8 +207,8 @@ async function api(req, res, url) {
     const ex = extras.get(sid) || {};
     if ('code' in body) {
       const c = String(body.code || '').trim().toUpperCase();
-      if (c && c !== FESTIVE.code) return send(res, 400, { error: 'That code is not valid' });
-      if (c && !codeLive()) return send(res, 400, { error: 'This code has expired' });
+      if (c && !CODES[c]) return send(res, 400, { error: 'That code is not valid' });
+      if (c && !live(c)) return send(res, 400, { error: 'This code has expired' });
       ex.code = c;
     }
     if ('gift' in body) ex.gift = !!body.gift;

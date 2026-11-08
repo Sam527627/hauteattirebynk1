@@ -507,3 +507,95 @@ body.festive .link-u::after{background:var(--rani)}
 .head h2::after{content:'✦';color:var(--gold);font-size:.55em;margin-left:12px;vertical-align:middle}
 @media (prefers-reduced-motion:reduce){.diya .flame,.lights::before,.lights::after,.hero-img i{animation:none}.hero-img i{display:none}}
 @media (max-width:600px){.diya{width:26px;height:26px}}
+
+/* ================= Diwali Week — redesign ================= */
+.dw-hero{position:relative;overflow:hidden;color:#f6e9cf;
+  background:radial-gradient(ellipse 70% 80% at 72% 42%,#68163f 0%,#3a0e2e 48%,#170717 100%);
+  padding:clamp(70px,9vw,120px) 0 0}
+.dw-bg{position:absolute;inset:0;pointer-events:none}
+.rangoli{position:absolute;right:-8%;top:50%;width:min(980px,120vw);color:#d9b45a;opacity:.22;transform:translateY(-50%);animation:spin 160s linear infinite}
+@keyframes spin{to{transform:translateY(-50%) rotate(360deg)}}
+.embers i{position:absolute;bottom:-10px;width:4px;height:4px;border-radius:50%;background:#ffc861;box-shadow:0 0 8px 2px rgba(255,170,60,.85);opacity:0;animation:emberRise linear infinite}
+@keyframes emberRise{0%{transform:translate(0,0);opacity:0}12%{opacity:.95}100%{transform:translate(var(--dx),-720px);opacity:0}}
+.lanterns{position:absolute;inset:0 0 auto 0;height:0;z-index:2;pointer-events:none}
+.lantern{position:absolute;top:0;width:calc(54px*var(--s));transform-origin:50% 0;animation:swing var(--d) ease-in-out infinite alternate;filter:drop-shadow(0 0 16px rgba(255,160,50,.65))}
+.lantern i{display:block;width:1px;height:var(--len);background:linear-gradient(#d9b45a,#a07a2a);margin:0 auto}
+.lantern svg{display:block;width:100%}
+.lantern .cap{fill:#d9b45a}.lantern .body{fill:url(#none);fill:#c8271f;stroke:#d9b45a;stroke-width:1.5}
+.lantern .rib{stroke:#f3d283;stroke-width:1;fill:none;opacity:.85}
+.lantern .glow{fill:#ffd37a;animation:glowp 2.4s ease-in-out infinite alternate}
+.lantern .tail{stroke:#d9b45a;stroke-width:2}
+.lantern:nth-child(even) .body{fill:#a3125a}
+@keyframes swing{from{transform:rotate(-4deg)}to{transform:rotate(4deg)}}
+@keyframes glowp{from{opacity:.55}to{opacity:1}}
+.dw-grid{position:relative;z-index:3;display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(24px,5vw,80px);align-items:center;padding-bottom:70px}
+.dw-eyebrow{font-size:11.5px;letter-spacing:.3em;text-transform:uppercase;color:#e7c777;margin-bottom:18px}
+.dw-copy h1{font-family:var(--serif);font-weight:400;font-size:clamp(44px,6.4vw,92px);line-height:1.02;text-transform:uppercase;letter-spacing:.01em;color:#fff5e0}
+.dw-copy h1 em{font-style:italic;text-transform:none;color:#f1c75e;display:inline-block;background:linear-gradient(100deg,#f7dc8c,#d9a93c 50%,#f7dc8c);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.dw-sub{max-width:48ch;margin:22px 0 28px;color:#e7d8bd;font-size:17px;line-height:1.65}
+.dw-offer{display:flex;align-items:center;gap:20px;margin-bottom:32px}
+.medal{position:relative;flex:none;width:112px;height:112px;border-radius:50%;display:grid;place-content:center;text-align:center;color:#2a0a24;
+  background:radial-gradient(circle at 35% 30%,#fbe7a6,#d9a93c 60%,#a9791c);box-shadow:0 0 0 5px rgba(217,180,90,.25),0 0 40px rgba(255,190,70,.45)}
+.medal::before{content:'';position:absolute;inset:-12px;border-radius:50%;border:1px dashed #e7c777;animation:spin2 28s linear infinite}
+@keyframes spin2{to{transform:rotate(360deg)}}
+.medal b{font-family:var(--serif);font-weight:500;font-size:38px;line-height:1}
+.medal span{font-size:11px;letter-spacing:.3em;margin-top:2px}
+.dw-offer p{color:#e7d8bd;font-size:14.5px;line-height:1.55}.dw-offer strong{color:#fff5e0;font-weight:500;font-size:16px}
+.btn.gold{background:linear-gradient(100deg,#f1d27c,#d9a93c);color:#2a0a24;border:0;width:auto;min-width:230px;font-weight:500}
+.btn.gold:hover{filter:brightness(1.08)}
+.link-u.light{color:#f6e9cf}.dw-hero .link-u::after,.dw-gift .link-u::after{background:#e7c777}
+.dw-arch{position:relative;display:block;justify-self:center;width:min(100%,430px);aspect-ratio:4/5.2;border-radius:999px 999px 6px 6px;padding:10px;
+  border:1.5px solid #d9b45a;box-shadow:0 0 70px rgba(255,170,60,.28),inset 0 0 0 1px rgba(217,180,90,.35);background:rgba(20,5,20,.35)}
+.dw-arch::before{content:'';position:absolute;inset:-14px;border-radius:999px 999px 10px 10px;border:1px solid rgba(217,180,90,.35)}
+.dw-arch img{border-radius:999px 999px 2px 2px;object-position:top center;transition:transform 1.6s var(--ease)}
+.dw-arch:hover img{transform:scale(1.04)}
+.dw-arch{overflow:visible}.dw-arch img{width:100%;height:100%;object-fit:cover}
+.dw-cap{position:absolute;left:50%;bottom:-22px;transform:translateX(-50%);white-space:nowrap;background:#fff5e0;color:#2a0a24;padding:12px 22px;font-size:14px;box-shadow:0 10px 30px rgba(0,0,0,.35)}
+.dw-cap em{font-family:var(--serif);font-style:normal;display:block;font-size:15px;margin-bottom:2px}
+.dw-cap s{color:#8a7a70;margin-left:6px;font-size:12px}
+.dw-diyas{position:relative;z-index:3;display:flex;justify-content:space-around;padding:0 4vw 26px;border-top:0;
+  background:linear-gradient(to top,rgba(0,0,0,.35),transparent)}
+.dw-hero .diya{width:44px;height:44px;position:relative}
+.dw-diyas .flame{opacity:0;transform:scale(.2);transform-origin:20px 20px;transition:opacity .5s,transform .6s var(--ease)}
+.dw-diyas.lit .flame{opacity:1;transform:scale(1);animation:flicker 1.7s ease-in-out infinite}
+.dw-diyas .diya:nth-child(1) .flame{transition-delay:.0s}.dw-diyas .diya:nth-child(2) .flame{transition-delay:.15s}.dw-diyas .diya:nth-child(3) .flame{transition-delay:.3s}.dw-diyas .diya:nth-child(4) .flame{transition-delay:.45s}.dw-diyas .diya:nth-child(5) .flame{transition-delay:.6s}.dw-diyas .diya:nth-child(6) .flame{transition-delay:.75s}.dw-diyas .diya:nth-child(7) .flame{transition-delay:.6s}.dw-diyas .diya:nth-child(8) .flame{transition-delay:.45s}.dw-diyas .diya:nth-child(9) .flame{transition-delay:.3s}.dw-diyas .diya:nth-child(10) .flame{transition-delay:.15s}.dw-diyas .diya:nth-child(11) .flame{transition-delay:0s}
+.dw-diyas .diya:nth-child(odd) .flame{animation-delay:-.6s}
+
+.dw-picks{padding-top:clamp(70px,8vw,110px)}
+.tag.off.dw{background:linear-gradient(100deg,#f1d27c,#d9a93c);color:#2a0a24;font-weight:500}
+.price em{font-style:normal;color:var(--rani)}
+.occ3{grid-template-columns:repeat(3,1fr)}
+.occ3 .occ-tile{aspect-ratio:4/5}
+.dw-gift{padding-top:0}
+.dw-gift-in{display:grid;grid-template-columns:1.3fr .7fr;gap:30px;align-items:center;padding:clamp(34px,5vw,76px);color:#f6e9cf;position:relative;overflow:hidden;
+  background:radial-gradient(ellipse at 85% 50%,#68163f,#2a0a24 70%)}
+.dw-gift-in::after{content:'';position:absolute;inset:14px;border:1px solid rgba(217,180,90,.4);pointer-events:none}
+.dw-gift-in h2{font-family:var(--serif);font-weight:400;font-size:clamp(30px,3.8vw,52px);text-transform:uppercase;line-height:1.08;color:#fff5e0;margin-bottom:14px}
+.dw-gift-in p{color:#e7d8bd;max-width:52ch;margin-bottom:22px}
+.dw-box{justify-self:center;position:relative;width:min(240px,60%);aspect-ratio:1;background:linear-gradient(135deg,#a3125a,#6a0d38);box-shadow:0 20px 60px rgba(0,0,0,.45),0 0 50px rgba(255,170,60,.22);animation:floaty 5s ease-in-out infinite}
+.ribbon-v,.ribbon-h{position:absolute;background:linear-gradient(#f1d27c,#d9a93c)}
+.ribbon-v{left:50%;top:0;bottom:0;width:26px;transform:translateX(-50%)}.ribbon-h{top:50%;left:0;right:0;height:26px;transform:translateY(-50%)}
+.bow{position:absolute;left:50%;top:-22px;width:54px;height:36px;transform:translateX(-50%);border:6px solid #f1d27c;border-radius:50% 50% 50% 50%/70% 70% 30% 30%}
+@keyframes floaty{50%{transform:translateY(-10px)}}
+.dw-hero ~ section .spot-txt h2{color:var(--ink)}
+.spot-price s{color:var(--muted);font-size:16px;margin-left:8px}
+
+@media (max-width:900px){
+  .dw-grid{grid-template-columns:1fr;padding-bottom:50px}
+  .dw-arch{width:min(78%,360px);margin-top:10px}
+  .occ3{grid-template-columns:1fr 1fr}.occ3 .occ-tile:last-child{grid-column:span 2;aspect-ratio:16/9}
+  .dw-gift-in{grid-template-columns:1fr}.dw-box{display:none}
+  .lantern{display:none}.lantern:nth-child(4){display:block}
+  .dw-hero .diya{width:26px;height:26px}
+  .medal{width:92px;height:92px}.medal b{font-size:30px}
+  .btn.gold{width:100%}
+}
+@media (prefers-reduced-motion:reduce){.rangoli,.lantern,.medal::before,.dw-box,.embers i,.dw-diyas.lit .flame{animation:none}.embers{display:none}}
+
+.dw-hero{padding-top:clamp(56px,6vw,84px)}
+.dw-copy h1{font-size:clamp(42px,5.4vw,76px)}
+.dw-sub{margin:16px 0 22px;font-size:16px}
+.dw-offer{margin-bottom:24px}
+.dw-grid{padding-bottom:56px}
+.dw-arch{width:min(100%,380px);aspect-ratio:4/4.9}
+.dw-eyebrow{margin-bottom:12px}

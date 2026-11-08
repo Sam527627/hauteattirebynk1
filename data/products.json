@@ -66,7 +66,8 @@
     ],
     "occasions": [
       "navratri",
-      "diwali"
+      "diwali",
+      "gifting"
     ],
     "festive": false
   },
@@ -102,7 +103,8 @@
     ],
     "occasions": [
       "navratri",
-      "diwali"
+      "diwali",
+      "gifting"
     ],
     "festive": false
   },
@@ -280,7 +282,8 @@
     ],
     "occasions": [
       "navratri",
-      "shaadi"
+      "shaadi",
+      "gifting"
     ],
     "festive": false
   },
@@ -547,7 +550,8 @@
     "occasions": [
       "navratri",
       "diwali",
-      "shaadi"
+      "shaadi",
+      "gifting"
     ],
     "festive": true
   },
@@ -618,7 +622,8 @@
     ],
     "occasions": [
       "diwali",
-      "shaadi"
+      "shaadi",
+      "gifting"
     ],
     "festive": false
   },
@@ -722,7 +727,8 @@
       "Concealed back zip"
     ],
     "occasions": [
-      "shaadi"
+      "shaadi",
+      "gifting"
     ],
     "festive": false
   },
